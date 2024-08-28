@@ -13,64 +13,77 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: 400,
-              height: 200,
-              child: Image.asset('assets/images/teaceita.png'),
-            ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
-              child: Text(
+        alignment: Alignment.topCenter, // Ajusta o alinhamento do container
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0), // Adiciona padding horizontal geral
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: 400,
+                  height: 200,
+                  child: Image.asset('assets/images/teaceita.png'),
+                ),
+              ),
+              const SizedBox(height: 20), // Espaçamento entre a imagem e o texto
+              Text(
                 'Acesse',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 29),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Username:',
-                    style: TextStyle(
-                        color: Colors.black54, fontWeight: FontWeight.w500),
+              const SizedBox(height: 10), // Espaçamento entre o título e o texto abaixo
+              RichText(
+                text: TextSpan(
+                  text: 'Com número de telefone ou nome de usuário e senha para entrar',
+                  style: TextStyle(
+                    color: Colors.black, // Ajusta a cor do texto
+                    fontSize: 25,
+                    fontWeight: FontWeight.w400,
                   ),
-                  Inputtext(
-                    suffixIcon: Icon(
-                      Icons.send_rounded,
-                    ),
-                    visibility: true,
-                    text: 'Digite seu E-mail',
-                  )
-                ],
+                ),
+                textAlign: TextAlign.left,
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Username:',
-                    style: TextStyle(
-                        color: Colors.black54, fontWeight: FontWeight.w500),
-                  ),
-                  Inputtext(
-                    suffixIcon: Icon(
-                      Icons.send_rounded,
+              const SizedBox(height: 20), // Espaçamento entre o texto e o primeiro campo de entrada
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Username:',
+                      style: TextStyle(
+                          color: Colors.black54, fontWeight: FontWeight.w500),
                     ),
-                    visibility: true,
-                    text: 'Digite seu E-mail',
-                  )
-                ],
+                    Inputtext(
+                      suffixIcon: Icon(Icons.send_rounded),
+                      visibility: true,
+                      text: 'Digite seu E-mail',
+                    ),
+                  ],
+                ),
               ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Senha:',
+                      style: TextStyle(
+                          color: Colors.black54, fontWeight: FontWeight.w500),
+                    ),
+                    Inputtext(
+                      suffixIcon: Icon(Icons.lock_rounded),
+                      visibility: true,
+                      text: 'Digite sua Senha',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
