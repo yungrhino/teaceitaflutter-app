@@ -24,13 +24,52 @@ class _LoginPageState extends State<LoginPage> {
               child: Image.asset('assets/images/teaceita.png'),
             ),
             const Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 300, 0),
+              padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
               child: Text(
                 'Acesse',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 29),
               ),
             ),
-            Inputtext()
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Username:',
+                    style: TextStyle(
+                        color: Colors.black54, fontWeight: FontWeight.w500),
+                  ),
+                  Inputtext(
+                    suffixIcon: Icon(
+                      Icons.send_rounded,
+                    ),
+                    visibility: true,
+                    text: 'Digite seu E-mail',
+                  )
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Username:',
+                    style: TextStyle(
+                        color: Colors.black54, fontWeight: FontWeight.w500),
+                  ),
+                  Inputtext(
+                    suffixIcon: Icon(
+                      Icons.send_rounded,
+                    ),
+                    visibility: true,
+                    text: 'Digite seu E-mail',
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
