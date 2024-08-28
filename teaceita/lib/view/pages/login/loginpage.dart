@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.black54, fontWeight: FontWeight.w500),
                     ),
                     Inputtext(
-                      suffixIcon: Icon(Icons.lock_rounded),
+                      suffixIcon: Icon(Icons.remove_red_eye_rounded),
                       visibility: true,
                       text: 'Digite sua Senha',
                     ),
