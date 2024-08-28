@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Inputtext extends StatelessWidget {
-  final Icon? suffixIcon;  // Sufixo opcional (ícone)
-  final bool visibility;   // Visibilidade do campo (autofoco)
-  final String text;       // Texto de dica
+  final Icon? suffixIcon; // Sufixo opcional (ícone)
+  final bool visibility; // Visibilidade do campo (autofoco)
+  final String text; // Texto de dica
 
   const Inputtext({
     super.key,
@@ -15,12 +15,13 @@ class Inputtext extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(),
       child: TextField(
         autofocus: visibility,
         style: const TextStyle(fontSize: 13, color: Colors.black),
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(15)),
             borderSide: BorderSide(color: Color(0xffc8e3ff), width: 3),
