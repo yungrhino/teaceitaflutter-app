@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:teaceita/view/pages/cadastro/cadastropage.dart';
+import 'package:teaceita/view/pages/home/homepage.dart';
 import 'package:teaceita/view/pages/login/loginpage.dart';
 
 void main() {
@@ -12,11 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const LoginPage());
+      initialRoute: '/',
+      routes: {
+        '/': (_) => const LoginPage(),
+        '/home': (_) => const HomePage(),
+        '/cadastro': (_) => const Cadastropage()
+      },
+    );
   }
 }

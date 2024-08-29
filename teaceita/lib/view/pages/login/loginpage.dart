@@ -9,7 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final Color primaryColor = Color.fromRGBO(74, 173, 101, 1);
+  final Color primaryColor = const Color.fromRGBO(74, 173, 101, 1);
   final Color secondaryColor = Colors.black;
   final Color whiteColor = Colors.white;
 
@@ -39,8 +39,11 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 30),
               _buildSubtitle(),
               const SizedBox(height: 20),
-              _buildInputField('Digite seu usuário:', 'Número de telefone ou nome de usuário', Icons.person),
-              _buildInputField('Digite sua senha:', 'Senha', Icons.remove_red_eye_rounded, isPassword: true),
+              _buildInputField('Digite seu usuário:',
+                  'Número de telefone ou nome de usuário', Icons.person),
+              _buildInputField(
+                  'Digite sua senha:', 'Senha', Icons.remove_red_eye_rounded,
+                  isPassword: true),
               _buildForgotPasswordText(),
               const SizedBox(height: 20),
               _buildActionButtons(),
@@ -90,7 +93,8 @@ class _LoginPageState extends State<LoginPage> {
         const SizedBox(height: 10),
         RichText(
           text: TextSpan(
-            text: 'Com número de telefone ou nome de usuário e senha para entrar',
+            text:
+                'Com número de telefone ou nome de usuário e senha para entrar',
             style: _headerStyle(25, FontWeight.normal),
           ),
           textAlign: TextAlign.left,
@@ -99,13 +103,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildInputField(String label, String hint, IconData suffixIcon, {bool isPassword = false}) {
+  Widget _buildInputField(String label, String hint, IconData suffixIcon,
+      {bool isPassword = false}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(color: Colors.black54)),
+          Text(label, style: const TextStyle(color: Colors.black54)),
           Inputtext(
             suffixIcon: Icon(suffixIcon),
             visibility: !isPassword,
@@ -120,7 +125,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildForgotPasswordText() {
     return const Text(
       'Lembrar minha senha',
-      style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.612), fontWeight: FontWeight.w300),
+      style: TextStyle(
+          color: Color.fromRGBO(0, 0, 0, 0.612), fontWeight: FontWeight.w300),
     );
   }
 
@@ -137,10 +143,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildButton(String text, Color backgroundColor, Color textColor, {bool isElevated = false}) {
+  Widget _buildButton(String text, Color backgroundColor, Color textColor,
+      {bool isElevated = false}) {
     return isElevated
         ? ElevatedButton(
             onPressed: () {
+              Navigator.of(context).pushNamed('/home');
               // Ação do botão de acessar
             },
             style: ButtonStyle(
@@ -151,16 +159,19 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               padding: WidgetStateProperty.all<EdgeInsets>(
-                EdgeInsets.symmetric(vertical: 20.0, horizontal: 55.0),
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 55.0),
               ),
             ),
             child: Text(
               text,
-              style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  color: Color.fromRGBO(0, 0, 0, 1),
+                  fontWeight: FontWeight.bold),
             ),
           )
         : TextButton(
             onPressed: () {
+              Navigator.of(context).pushNamed('/cadastro');
               // Ação do botão de cadastrar
             },
             style: ButtonStyle(
@@ -174,12 +185,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               padding: WidgetStateProperty.all<EdgeInsets>(
-                EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
               ),
             ),
             child: Text(
               text,
-              style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  color: Color.fromRGBO(0, 0, 0, 1),
+                  fontWeight: FontWeight.bold),
             ),
           );
   }
@@ -187,12 +200,19 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildDividerWithText(String text) {
     return Row(
       children: [
-        Expanded(child: Divider(color: Color.fromRGBO(0, 0, 0, 0.612), thickness: 2)),
+        const Expanded(
+            child:
+                Divider(color: Color.fromRGBO(0, 0, 0, 0.612), thickness: 2)),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(text, style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.612), fontWeight: FontWeight.w300)),
+          child: Text(text,
+              style: const TextStyle(
+                  color: Color.fromRGBO(0, 0, 0, 0.612),
+                  fontWeight: FontWeight.w300)),
         ),
-        Expanded(child: Divider(color: Color.fromRGBO(0, 0, 0, 0.612), thickness: 2)),
+        const Expanded(
+            child:
+                Divider(color: Color.fromRGBO(0, 0, 0, 0.612), thickness: 2)),
       ],
     );
   }
