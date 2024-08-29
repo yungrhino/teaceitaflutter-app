@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
               backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
               shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
               padding: WidgetStateProperty.all<EdgeInsets>(
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             child: Text(
               text,
-              style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+              style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.bold),
             ),
           )
         : TextButton(
@@ -170,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
               padding: WidgetStateProperty.all<EdgeInsets>(
@@ -179,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             child: Text(
               text,
-              style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+              style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.bold),
             ),
           );
   }
