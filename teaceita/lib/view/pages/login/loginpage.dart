@@ -83,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                       suffixIcon: Icon(Icons.remove_red_eye_rounded),
                       visibility: false,
                       text: 'Senha',
+                      isPassword: true,  // Define que este campo é uma senha
                     ),
                   ],
                 ),
