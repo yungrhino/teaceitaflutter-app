@@ -121,6 +121,38 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
+              const Text(
+                'Esqueci a senha?',
+                style: TextStyle(
+                    color: Color.fromRGBO(74, 173, 101, 100),
+                    fontWeight: FontWeight.w300),
+              ),
+
+              TextButton(onPressed: () {}, child: Text('Cadastrar')),
+
+              Row(
+                children: [
+                  Expanded(
+                      child: Divider(
+                    color: Color.fromRGBO(74, 173, 101, 100),
+                    thickness: 2,
+                  )),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const Text(
+                      'Ou acesse com',
+                      style: TextStyle(
+                          color: Color.fromRGBO(74, 173, 101, 100),
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                  Expanded(
+                      child: Divider(
+                    color: Color.fromRGBO(74, 173, 101, 100),
+                    thickness: 2,
+                  ))
+                ],
+              )
             ],
           ),
         ),
