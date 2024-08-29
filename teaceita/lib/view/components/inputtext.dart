@@ -24,15 +24,18 @@ class Inputtext extends StatelessWidget {
               const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(15)),
-            borderSide: BorderSide(color: Color(0xffc8e3ff), width: 3),
+            borderSide:
+                BorderSide(color: Color.fromRGBO(74, 173, 101, 100), width: 3),
           ),
           focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(15)),
-            borderSide: BorderSide(color: Color(0xffc8e3ff), width: 3),
+            borderSide:
+                BorderSide(color: Color.fromRGBO(74, 173, 101, 100), width: 3),
           ),
           filled: true,
-          fillColor: const Color(0xffedf8ff),
+          fillColor: const Color.fromRGBO(237, 248, 255, 1),
           suffixIcon: suffixIcon,
+          suffixIconColor: const Color.fromRGBO(200, 227, 255, 1),
           hintText: text,
           hintStyle: const TextStyle(
             color: Colors.black54,

@@ -15,7 +15,8 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         alignment: Alignment.topCenter, // Ajusta o alinhamento do container
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0), // Adiciona padding horizontal geral
+          padding: const EdgeInsets.symmetric(
+              horizontal: 20.0), // Adiciona padding horizontal geral
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -28,38 +29,42 @@ class _LoginPageState extends State<LoginPage> {
                   child: Image.asset('assets/images/teaceita.png'),
                 ),
               ),
-              const SizedBox(height: 20), // Espaçamento entre a imagem e o texto
+              const SizedBox(
+                  height: 20), // Espaçamento entre a imagem e o texto
               Text(
                 'Acesse',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
               ),
-              const SizedBox(height: 10), // Espaçamento entre o título e o texto abaixo
+              const SizedBox(
+                  height: 10), // Espaçamento entre o título e o texto abaixo
               RichText(
                 text: TextSpan(
-                  text: 'Com número de telefone ou nome de usuário e senha para entrar',
+                  text:
+                      'Com número de telefone ou nome de usuário e senha para entrar',
                   style: TextStyle(
                     color: Colors.black, // Ajusta a cor do texto
                     fontSize: 25,
-                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 textAlign: TextAlign.left,
               ),
-              const SizedBox(height: 20), // Espaçamento entre o texto e o primeiro campo de entrada
+              const SizedBox(
+                  height:
+                      20), // Espaçamento entre o texto e o primeiro campo de entrada
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Username:',
+                      'Digite seu usuário:',
                       style: TextStyle(
-                          color: Colors.black54, fontWeight: FontWeight.w500),
+                          color: Colors.black54, fontWeight: FontWeight.normal),
                     ),
                     Inputtext(
-                      suffixIcon: Icon(Icons.send_rounded),
+                      suffixIcon: Icon(Icons.person),
                       visibility: true,
-                      text: 'Digite seu E-mail',
+                      text: 'Número de telefone ou nome de usuário',
                     ),
                   ],
                 ),
@@ -70,14 +75,14 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Senha:',
+                      'Digite sua senha:',
                       style: TextStyle(
-                          color: Colors.black54, fontWeight: FontWeight.w500),
+                          color: Colors.black54, fontWeight: FontWeight.normal),
                     ),
                     Inputtext(
                       suffixIcon: Icon(Icons.remove_red_eye_rounded),
-                      visibility: true,
-                      text: 'Digite sua Senha',
+                      visibility: false,
+                      text: 'Senha',
                     ),
                   ],
                 ),
