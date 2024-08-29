@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 20),
               _buildActionButtons(),
               const SizedBox(height: 20),
-              _buildDividerWithText('Ou acesse com'),
+              _buildDividerWithText('Ou acesse com:'),
             ],
           ),
         ),
@@ -119,8 +119,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildForgotPasswordText() {
     return const Text(
-      'Esqueceu a senha?',
-      style: TextStyle(color: Color.fromRGBO(74, 173, 101, 100), fontWeight: FontWeight.w300),
+      'Lembrar minha senha',
+      style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.612), fontWeight: FontWeight.w300),
     );
   }
 
@@ -187,12 +187,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildDividerWithText(String text) {
     return Row(
       children: [
-        Expanded(child: Divider(color: Color.fromRGBO(74, 173, 101, 100), thickness: 2)),
+        Expanded(child: Divider(color: Color.fromRGBO(0, 0, 0, 0.612), thickness: 2)),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(text, style: TextStyle(color: Color.fromRGBO(74, 173, 101, 100), fontWeight: FontWeight.w300)),
+          child: Text(text, style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.612), fontWeight: FontWeight.w300)),
         ),
-        Expanded(child: Divider(color: Color.fromRGBO(74, 173, 101, 100), thickness: 2)),
+        Expanded(child: Divider(color: Color.fromRGBO(0, 0, 0, 0.612), thickness: 2)),
       ],
     );
   }
