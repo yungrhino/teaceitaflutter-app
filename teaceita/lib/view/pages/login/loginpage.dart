@@ -24,13 +24,46 @@ class _LoginPageState extends State<LoginPage> {
               Align(
                 alignment: Alignment.center,
                 child: SizedBox(
-                  width: 400,
-                  height: 200,
-                  child: Image.asset('assets/images/teaceita.png'),
+                  width: 250, // Define a largura desejada
+                  height: 250, // Define a altura desejada
+                  child: FittedBox(
+                    fit: BoxFit
+                        .fill, // Garante que a imagem preencha todo o espaço do SizedBox
+                    child: Image.asset('assets/images/teaceita.png'),
+                  ),
                 ),
               ),
               const SizedBox(
-                  height: 20), // Espaçamento entre a imagem e o texto
+                  height: 10), // Espaçamento entre a imagem e o texto
+              Align(
+                alignment: Alignment.center,
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'TEA',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 45,
+                          color: Colors.black, // Cor do texto
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'ceita',
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 45,
+                          color: Colors.black, // Cor do texto
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                  height:
+                      30), // Espaçamento entre o texto "TEAceita" e o restante do código
               Text(
                 'Acesse',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
@@ -83,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                       suffixIcon: Icon(Icons.remove_red_eye_rounded),
                       visibility: false,
                       text: 'Senha',
-                      isPassword: true,  // Define que este campo é uma senha
+                      isPassword: true, // Define que este campo é uma senha
                     ),
                   ],
                 ),
