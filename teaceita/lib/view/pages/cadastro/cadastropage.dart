@@ -17,7 +17,15 @@ class _CadastroPageState extends State<Cadastropage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
+            const ExpansionTile(
+              title: Text('Selecione uma Opção...'),
+              children: [
+                ListTile(title: Text('Visitante')),
+                ListTile(title: Text('Psicólogo')),
+                ListTile(title: Text('Empresa')),
+              ],
+            ),
             ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
