@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teaceita/view/pages/cadastro/cadastropage.dart';
-import 'package:teaceita/view/pages/home/homepage.dart';
-import 'package:teaceita/view/pages/login/loginpage.dart';
+import 'package:teaceita/view/routes/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +11,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (_) => const LoginPage(),
-        '/home': (_) => const HomePage(),
-        '/cadastro': (_) => const Cadastropage()
-      },
+    return const MaterialApp(
+      initialRoute: Routes.login,
+      onGenerateRoute: Routes.generateRoute,
     );
   }
 }
