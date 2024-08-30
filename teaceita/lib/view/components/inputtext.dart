@@ -5,6 +5,7 @@ class Inputtext extends StatefulWidget {
   final bool visibility; // Visibilidade do campo (autofoco)
   final String text; // Texto de dica
   final bool isPassword; // Define se o campo é uma senha
+  final TextStyle? hintStyle; // Adicionando o parâmetro hintStyle
 
   const Inputtext({
     super.key,
@@ -12,6 +13,7 @@ class Inputtext extends StatefulWidget {
     required this.visibility,
     required this.text,
     this.isPassword = false, // Valor padrão é falso
+    this.hintStyle, // Inicializa o novo parâmetro
   });
 
   @override
@@ -19,7 +21,7 @@ class Inputtext extends StatefulWidget {
 }
 
 class _InputtextState extends State<Inputtext> {
-  bool _isObscure = true;  // Estado inicial para esconder a senha
+  bool _isObscure = true; // Estado inicial para esconder a senha
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class _InputtextState extends State<Inputtext> {
       padding: const EdgeInsets.symmetric(),
       child: TextField(
         autofocus: widget.visibility,
-        obscureText: widget.isPassword && _isObscure,  // Controle de visibilidade apenas se for senha
+        obscureText: widget.isPassword && _isObscure, // Controle de visibilidade apenas se for senha
         style: const TextStyle(fontSize: 13, color: Colors.black),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -44,21 +46,22 @@ class _InputtextState extends State<Inputtext> {
           suffixIcon: widget.isPassword
               ? IconButton(
                   icon: Icon(
-                    _isObscure ? Icons.visibility : Icons.visibility_off,  // Alterna o ícone
+                    _isObscure ? Icons.visibility : Icons.visibility_off, // Alterna o ícone
                   ),
                   onPressed: () {
                     setState(() {
-                      _isObscure = !_isObscure;  // Alterna a visibilidade da senha
+                      _isObscure = !_isObscure; // Alterna a visibilidade da senha
                     });
                   },
                 )
-              : widget.suffixIcon,  // Usa o ícone padrão se não for senha
+              : widget.suffixIcon, // Usa o ícone padrão se não for senha
           suffixIconColor: const Color.fromRGBO(200, 227, 255, 1),
           hintText: widget.text,
-          hintStyle: const TextStyle(
-            color: Colors.black54,
-            fontWeight: FontWeight.w300,
-          ),
+          hintStyle: widget.hintStyle ?? // Usando hintStyle se estiver definido
+              const TextStyle(
+                color: Colors.black54,
+                fontWeight: FontWeight.w100,
+              ),
         ),
       ),
     );
