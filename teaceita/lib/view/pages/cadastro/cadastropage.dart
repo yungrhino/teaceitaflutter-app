@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teaceita/view/pages/home/homepage.dart';
 
 class Cadastropage extends StatefulWidget {
   const Cadastropage({super.key});
@@ -18,12 +19,19 @@ class _CadastroPageState extends State<Cadastropage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const ExpansionTile(
-              title: Text('Selecione uma Opção...'),
+            ExpansionTile(
+              title: const Text('Selecione uma Opção...'),
               children: [
-                ListTile(title: Text('Visitante')),
-                ListTile(title: Text('Psicólogo')),
-                ListTile(title: Text('Empresa')),
+                ListTile(
+                    title: const Text('Visitante'),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()));
+                    }),
+                const ListTile(title: Text('Psicólogo')),
+                const ListTile(title: Text('Empresa')),
               ],
             ),
             ElevatedButton(

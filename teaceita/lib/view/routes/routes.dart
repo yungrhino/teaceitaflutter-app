@@ -4,7 +4,7 @@ import 'package:teaceita/view/pages/home/homepage.dart';
 import 'package:teaceita/view/pages/login/loginpage.dart';
 
 class Routes {
-  static const String login = '/login';
+  static const String login = '/';
   static const String home = '/home';
   static const String cadastro = '/cadastro';
 
