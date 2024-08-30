@@ -151,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
         _buildButton('Cadastrar', whiteColor, primaryColor),
         const SizedBox(width: 20),
         VerticalDivider(color: primaryColor, thickness: 2),
-        const SizedBox(width: 0),
+        const SizedBox(width: 1),
         _buildButton('Acessar', primaryColor, whiteColor, isElevated: true),
       ],
     );
@@ -172,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 55.0),
               ),
             ),
-            child: Text(text, style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.bold, fontSize: 15)),
+            child: Text(text, style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.bold, fontSize: 18)),
           )
         : TextButton(
             onPressed: () {
@@ -188,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
               ),
             ),
-            child: Text(text, style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.bold, fontSize: 15)),
+            child: Text(text, style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.bold, fontSize: 18)),
           );
   }
 
