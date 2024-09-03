@@ -22,7 +22,14 @@ class _CadastroPageState extends State<Cadastropage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildLogo(),
+            // Coloque a imagem e o título em um Column
+            Column(
+              children: [
+                _buildLogo(),
+                const SizedBox(height: 10), // Espaço entre logo e título
+                _buildTitle(), // Título abaixo do logo
+              ],
+            ),
             const SizedBox(height: 20),
             _buildSubtitle(),
             const SizedBox(height: 20),
@@ -30,6 +37,27 @@ class _CadastroPageState extends State<Cadastropage> {
               child: SingleChildScrollView(
                 child: ExpansionTile(
                   title: const Text('Selecione uma Opção...'),
+                  backgroundColor: const Color.fromRGBO(237, 248, 255, 1),
+                  collapsedBackgroundColor: const Color.fromRGBO(237, 248, 255, 1),
+                  tilePadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  childrenPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  textColor: Colors.black,
+                  iconColor: const Color.fromRGBO(200, 227, 255, 1),
+                  collapsedIconColor: const Color.fromRGBO(200, 227, 255, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    side: const BorderSide(
+                      color: Color.fromRGBO(74, 173, 101, 100),
+                      width: 3,
+                    ),
+                  ),
+                  collapsedShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    side: const BorderSide(
+                      color: Color.fromRGBO(74, 173, 101, 100),
+                      width: 3,
+                    ),
+                  ),
                   children: [
                     ListTile(
                       title: const Text('Visitante'),
@@ -37,7 +65,7 @@ class _CadastroPageState extends State<Cadastropage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const visitantepage(),
+                            builder: (context) => const VisitantePage(),
                           ),
                         );
                       },
@@ -47,7 +75,7 @@ class _CadastroPageState extends State<Cadastropage> {
                   ],
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -62,6 +90,26 @@ class _CadastroPageState extends State<Cadastropage> {
         child: FittedBox(
           fit: BoxFit.fill,
           child: Image.asset('assets/images/teaceita.png'),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTitle() {
+    return Center(
+      child: RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: 'TEA',
+              style: _headerStyle(45, FontWeight.bold).copyWith(color: Colors.black), // Texto preto
+            ),
+            TextSpan(
+              text: 'ceita',
+              style: _headerStyle(45, FontWeight.normal).copyWith(color: Colors.black), // Texto preto
+            ),
+          ],
         ),
       ),
     );
