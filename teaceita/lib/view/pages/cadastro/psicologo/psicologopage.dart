@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:teaceita/view/pages/home/homepage.dart';
 
-class VisitantePage extends StatelessWidget {
-  const VisitantePage({super.key});
+class PsicologoPage extends StatelessWidget {
+  const PsicologoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Visitante'),
+        title: const Text('Psicólogo'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),

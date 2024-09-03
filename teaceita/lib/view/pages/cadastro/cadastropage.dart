@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teaceita/view/pages/cadastro/visitante/visitantepage.dart';
+import 'package:teaceita/view/pages/cadastro/psicologo/psicologopage.dart';
+import 'package:teaceita/view/pages/cadastro/empresa/empresapage.dart';
 
 class Cadastropage extends StatefulWidget {
   const Cadastropage({super.key});
@@ -70,8 +72,28 @@ class _CadastroPageState extends State<Cadastropage> {
                         );
                       },
                     ),
-                    const ListTile(title: Text('Psicólogo')),
-                    const ListTile(title: Text('Empresa')),
+                    ListTile(
+                      title: const Text('Psicólogo'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PsicologoPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: const Text('Empresa'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const EmpresaPage(), // Navega para a página da empresa
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

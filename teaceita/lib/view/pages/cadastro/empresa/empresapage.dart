@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:teaceita/view/pages/home/homepage.dart';
+import 'package:teaceita/view/pages/home/homepage.dart'; // Importe a página inicial
 
-class VisitantePage extends StatelessWidget {
-  const VisitantePage({super.key});
+class EmpresaPage extends StatelessWidget {
+  const EmpresaPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Visitante'),
+        title: const Text('Empresa'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -26,7 +26,11 @@ class VisitantePage extends StatelessWidget {
                     const SizedBox(height: 20),
                     _buildInputField('Email'),
                     const SizedBox(height: 20),
-                    _buildInputField('Senha', obscureText: true),
+                    _buildInputField('Senha'),
+                    const SizedBox(height: 20),
+                    _buildInputField('CNPJ'),
+                    const SizedBox(height: 20),
+                    _buildInputField('Razão Social'),
                     const SizedBox(height: 20),
                     _buildInputField('Nome'),
                     const SizedBox(height: 20),
@@ -38,7 +42,7 @@ class VisitantePage extends StatelessWidget {
                     const SizedBox(height: 20),
                     _buildInputField('CPF'),
                     const SizedBox(height: 20),
-                    _buildSubmitButton(context), // Passando o contexto
+                    _buildSubmitButton(context), // Passa o contexto para o botão
                   ],
                 ),
               ),
@@ -97,16 +101,15 @@ class VisitantePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Por favor, insira suas credenciais',
+          'Por favor, insira suas informações',
           style: _headerStyle(25, FontWeight.normal).copyWith(color: Colors.black),
         ),
       ],
     );
   }
 
-  Widget _buildInputField(String hintText, {bool obscureText = false}) {
+  Widget _buildInputField(String hintText) {
     return TextField(
-      obscureText: obscureText,
       style: const TextStyle(fontSize: 13, color: Colors.black),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -169,7 +172,7 @@ class VisitantePage extends StatelessWidget {
         onPressed: () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()), // Altere HomePage para o nome da sua página inicial
+            MaterialPageRoute(builder: (context) => const HomePage()), // Navega para a HomePage
           );
         },
         style: ElevatedButton.styleFrom(
@@ -188,7 +191,7 @@ class VisitantePage extends StatelessWidget {
     return TextStyle(
       fontSize: size,
       fontWeight: fontWeight,
-      color: Colors.black,
+      color: Colors.black, // Cor preta para o texto
     );
   }
 }
