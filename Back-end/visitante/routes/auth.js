@@ -32,4 +32,33 @@ authRouter.post("/api/signup", async (req, res) => {
     }
   });
 
+  // Sign In
+
+  authRouter.post("/api/signin", async (req, res) => {
+    try {
+        const { email, password} = req.body;
+        
+        const user = await User.findOne({email});
+        if(!User) {
+            return res
+            .status(400)
+            .json({msg: "O Usuário ja existente"});
+        }
+
+        const isMatch = await bcryptjs.compare(password, user.password);
+        if(!isMatch) {
+            return res
+            .status(400)
+            .json({msg: "Senha incorreta"});
+        }
+
+        const token = jwt.sing({id: user._id}, "passwordKey");
+        res.json({token, ...user._doc});
+    } catch (e) {
+        res
+        .status(500)
+        .json({error: e.message});
+    }
+  });
+
 module.exports = authRouter;
