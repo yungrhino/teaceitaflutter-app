@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               padding: WidgetStateProperty.all<EdgeInsets>(
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-              ),
+              ),  
             ),
             child: Text(text, style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.bold, fontSize: 18)),
           );
