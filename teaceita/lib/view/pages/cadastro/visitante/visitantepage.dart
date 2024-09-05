@@ -31,23 +31,27 @@ class VisitantePage extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    Container(
-                      _buildSubtitle(),
+                    _buildSubtitle(),
+                    const SizedBox(height: 20),
+                    _buildInputField(
+                      'Email',
+                      controller: emailController,
                     ),
                     const SizedBox(height: 20),
-                    _buildInputField('Email'),
+                    _buildInputField('Senha',
+                        obscureText: true, controller: passwordController),
                     const SizedBox(height: 20),
-                    _buildInputField('Senha', obscureText: true),
+                    _buildInputField('Nome', controller: nameController),
                     const SizedBox(height: 20),
-                    _buildInputField('Nome'),
-                    const SizedBox(height: 20),
-                    _buildInputField('Sobrenome'),
+                    _buildInputField('Sobrenome',
+                        controller: sobrenomeController),
                     const SizedBox(height: 20),
                     _buildGenderDropdown(),
                     const SizedBox(height: 20),
-                    _buildInputField('Data de Nascimento'),
+                    _buildInputField('Data de Nascimento',
+                        controller: dataController),
                     const SizedBox(height: 20),
-                    _buildInputField('CPF'),
+                    _buildInputField('CPF', controller: cpfController),
                     const SizedBox(height: 20),
                     _buildSubmitButton(context), // Passando o contexto
                   ],
@@ -118,8 +122,10 @@ class VisitantePage extends StatelessWidget {
     );
   }
 
-  Widget _buildInputField(String hintText, {bool obscureText = false}) {
+  Widget _buildInputField(String hintText,
+      {bool obscureText = false, required TextEditingController controller}) {
     return TextField(
+      controller: controller,
       obscureText: obscureText,
       style: const TextStyle(fontSize: 13, color: Colors.black),
       decoration: InputDecoration(
