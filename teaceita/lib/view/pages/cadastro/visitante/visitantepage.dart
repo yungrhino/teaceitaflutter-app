@@ -9,9 +9,20 @@ class VisitantePage extends StatelessWidget {
   final TextEditingController sobrenomeController = TextEditingController();
   final TextEditingController dataController = TextEditingController();
   final TextEditingController cpfController = TextEditingController();
-  final AuthSevices authSevice = AuthSevices();
+  final AuthSevice authService = AuthSevice();
 
   VisitantePage({super.key});
+
+  void signupUser(BuildContext contxt) {
+    authService.signUpUser(
+        context: contxt,
+        email: emailController.text,
+        password: passwordController.text,
+        name: nameController.text,
+        sobrenome: sobrenomeController.text,
+        cpf: cpfController.text,
+        datanascimento: dataController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,11 +204,12 @@ class VisitantePage extends StatelessWidget {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pushReplacement(
+          signupUser(context);
+          Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    HomePage()), // Altere HomePage para o nome da sua página inicial
+                    const HomePage()), // Altere HomePage para o nome da sua página inicial
           );
         },
         style: ElevatedButton.styleFrom(

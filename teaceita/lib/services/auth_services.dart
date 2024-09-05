@@ -4,10 +4,10 @@ import 'package:teaceita/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:teaceita/utils/constants.dart';
 
-class AuthSevices {
-  void singUpUser({
+class AuthSevice {
+  void signUpUser({
     required BuildContext context,
-    required String emael,
+    required String email,
     required String password,
     required String name,
     required String sobrenome,
