@@ -4,7 +4,7 @@ import 'package:teaceita/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:teaceita/utils/constants.dart';
 
-class AuthSevice {
+class AuthService {
   void signUpUser({
     required BuildContext context,
     required String email,
@@ -29,7 +29,7 @@ class AuthSevice {
           Uri.parse('${Constants.uri}/api/signUp'),
           body: user.toJson(),
           headers: <String, String>{
-            'content-type': 'application/json; charset=UTF-8,'
+            'content-type': 'application/json; charset=UTF-8',
           });
 
       httpErrorHandle(
@@ -39,6 +39,8 @@ class AuthSevice {
             showSnackBar(
                 context, 'Account creanted! Loin with the same credentials!');
           });
-    } catch (e) {}
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
   }
 }

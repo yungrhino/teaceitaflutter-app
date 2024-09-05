@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:teaceita/services/auth_services.dart';
-import 'package:teaceita/view/pages/home/homepage.dart';
 
-class VisitantePage extends StatelessWidget {
+class Visitantepage extends StatefulWidget {
+  const Visitantepage({super.key});
+
+  @override
+  State<Visitantepage> createState() => _VisitantepageState();
+}
+
+class _VisitantepageState extends State<Visitantepage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController sobrenomeController = TextEditingController();
   final TextEditingController dataController = TextEditingController();
   final TextEditingController cpfController = TextEditingController();
-  final AuthSevice authService = AuthSevice();
-
-  VisitantePage({super.key});
-
-  void signupUser(BuildContext contxt) {
+  final AuthService authService = AuthService();
+  void signupUser() {
     authService.signUpUser(
-        context: contxt,
+        context: context,
         email: emailController.text,
         password: passwordController.text,
         name: nameController.text,
@@ -63,8 +66,24 @@ class VisitantePage extends StatelessWidget {
                         controller: dataController),
                     const SizedBox(height: 20),
                     _buildInputField('CPF', controller: cpfController),
-                    const SizedBox(height: 20),
-                    _buildSubmitButton(context), // Passando o contexto
+                    const SizedBox(height: 40),
+                    ElevatedButton(
+                      onPressed: signupUser,
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(Colors.blue),
+                        textStyle: WidgetStateProperty.all(
+                          const TextStyle(color: Colors.white),
+                        ),
+                        minimumSize: WidgetStateProperty.all(
+                          Size(MediaQuery.of(context).size.width / 2.5, 50),
+                        ),
+                      ),
+                      child: const Text(
+                        "Sign up",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ),
+                    // Passando o contextos
                   ],
                 ),
               ),
@@ -196,30 +215,6 @@ class VisitantePage extends StatelessWidget {
           color: Colors.black54,
           fontWeight: FontWeight.w100,
         ),
-      ),
-    );
-  }
-
-  Widget _buildSubmitButton(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          signupUser(context);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    const HomePage()), // Altere HomePage para o nome da sua página inicial
-          );
-        },
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          backgroundColor: const Color.fromRGBO(74, 173, 101, 100),
-        ),
-        child: const Icon(Icons.arrow_forward, color: Colors.white),
       ),
     );
   }
