@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:teaceita/services/auth_services.dart';
 import 'package:teaceita/view/pages/home/homepage.dart';
 
 class VisitantePage extends StatelessWidget {
-  const VisitantePage({super.key});
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController sobrenomeController = TextEditingController();
+  final TextEditingController dataController = TextEditingController();
+  final TextEditingController cpfController = TextEditingController();
+  final AuthSevices authSevice = AuthSevices();
+
+  VisitantePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +31,9 @@ class VisitantePage extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    _buildSubtitle(),
+                    Container(
+                      _buildSubtitle(),
+                    ),
                     const SizedBox(height: 20),
                     _buildInputField('Email'),
                     const SizedBox(height: 20),
@@ -80,11 +91,13 @@ class VisitantePage extends StatelessWidget {
           children: [
             TextSpan(
               text: 'TEA',
-              style: _headerStyle(45, FontWeight.bold).copyWith(color: Colors.black),
+              style: _headerStyle(45, FontWeight.bold)
+                  .copyWith(color: Colors.black),
             ),
             TextSpan(
               text: 'ceita',
-              style: _headerStyle(45, FontWeight.normal).copyWith(color: Colors.black),
+              style: _headerStyle(45, FontWeight.normal)
+                  .copyWith(color: Colors.black),
             ),
           ],
         ),
@@ -98,7 +111,8 @@ class VisitantePage extends StatelessWidget {
       children: [
         Text(
           'Por favor, insira suas credenciais',
-          style: _headerStyle(25, FontWeight.normal).copyWith(color: Colors.black),
+          style:
+              _headerStyle(25, FontWeight.normal).copyWith(color: Colors.black),
         ),
       ],
     );
@@ -109,14 +123,17 @@ class VisitantePage extends StatelessWidget {
       obscureText: obscureText,
       style: const TextStyle(fontSize: 13, color: Colors.black),
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(color: Color.fromRGBO(74, 173, 101, 100), width: 3),
+          borderSide:
+              BorderSide(color: Color.fromRGBO(74, 173, 101, 100), width: 3),
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(color: Color.fromRGBO(74, 173, 101, 100), width: 3),
+          borderSide:
+              BorderSide(color: Color.fromRGBO(74, 173, 101, 100), width: 3),
         ),
         filled: true,
         fillColor: const Color.fromRGBO(237, 248, 255, 1),
@@ -135,11 +152,13 @@ class VisitantePage extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(color: Color.fromRGBO(74, 173, 101, 100), width: 3),
+          borderSide:
+              BorderSide(color: Color.fromRGBO(74, 173, 101, 100), width: 3),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(color: Color.fromRGBO(74, 173, 101, 100), width: 3),
+          borderSide:
+              BorderSide(color: Color.fromRGBO(74, 173, 101, 100), width: 3),
         ),
         filled: true,
         fillColor: Color.fromRGBO(237, 248, 255, 1),
@@ -148,7 +167,8 @@ class VisitantePage extends StatelessWidget {
         DropdownMenuItem(value: 'Masculino', child: Text('Masculino')),
         DropdownMenuItem(value: 'Feminino', child: Text('Feminino')),
         DropdownMenuItem(value: 'Outro', child: Text('Outro')),
-        DropdownMenuItem(value: 'Prefiro não optar', child: Text('Prefiro não optar')),
+        DropdownMenuItem(
+            value: 'Prefiro não optar', child: Text('Prefiro não optar')),
       ],
       onChanged: (value) {
         // Lógica de tratamento da seleção do gênero
@@ -169,7 +189,9 @@ class VisitantePage extends StatelessWidget {
         onPressed: () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()), // Altere HomePage para o nome da sua página inicial
+            MaterialPageRoute(
+                builder: (context) =>
+                    HomePage()), // Altere HomePage para o nome da sua página inicial
           );
         },
         style: ElevatedButton.styleFrom(

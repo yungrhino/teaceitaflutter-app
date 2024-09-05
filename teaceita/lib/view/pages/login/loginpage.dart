@@ -102,7 +102,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildInputField(String label, String hint, IconData suffixIcon, {bool isPassword = false}) {
+  Widget _buildInputField(String label, String hint, IconData suffixIcon,
+      {bool isPassword = false}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: Column(
@@ -110,14 +111,16 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           Text(
             label,
-            style: const TextStyle(color: Colors.black54, fontSize: 20), // Aumentado para 20
+            style: const TextStyle(
+                color: Colors.black54, fontSize: 20), // Aumentado para 20
           ),
           Inputtext(
             suffixIcon: Icon(suffixIcon),
             visibility: !isPassword,
             text: hint,
             isPassword: isPassword,
-            hintStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w300), // Aumentado para 18
+            hintStyle: const TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w300), // Aumentado para 18
           ),
         ],
       ),
@@ -138,7 +141,10 @@ class _LoginPageState extends State<LoginPage> {
         ),
         const Text(
           'Lembrar minha senha?',
-          style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.612), fontWeight: FontWeight.w300, fontSize: 18),
+          style: TextStyle(
+              color: Color.fromRGBO(0, 0, 0, 0.612),
+              fontWeight: FontWeight.w300,
+              fontSize: 18),
         ),
       ],
     );
@@ -157,7 +163,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildButton(String text, Color backgroundColor, Color textColor, {bool isElevated = false}) {
+  Widget _buildButton(String text, Color backgroundColor, Color textColor,
+      {bool isElevated = false}) {
     return isElevated
         ? ElevatedButton(
             onPressed: () {
@@ -166,13 +173,18 @@ class _LoginPageState extends State<LoginPage> {
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
               shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
               ),
               padding: WidgetStateProperty.all<EdgeInsets>(
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 55.0),
               ),
             ),
-            child: Text(text, style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.bold, fontSize: 18)),
+            child: Text(text,
+                style: const TextStyle(
+                    color: Color.fromRGBO(0, 0, 0, 1),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18)),
           )
         : TextButton(
             onPressed: () {
@@ -180,15 +192,21 @@ class _LoginPageState extends State<LoginPage> {
             },
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
-              side: WidgetStateProperty.all<BorderSide>(BorderSide(color: primaryColor, width: 2)),
+              side: WidgetStateProperty.all<BorderSide>(
+                  BorderSide(color: primaryColor, width: 2)),
               shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
               ),
               padding: WidgetStateProperty.all<EdgeInsets>(
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-              ),  
+              ),
             ),
-            child: Text(text, style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.bold, fontSize: 18)),
+            child: Text(text,
+                style: const TextStyle(
+                    color: Color.fromRGBO(0, 0, 0, 1),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18)),
           );
   }
 
@@ -197,12 +215,19 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         Row(
           children: [
-            const Expanded(child: Divider(color: Color.fromRGBO(0, 0, 0, 0.612), thickness: 2)),
+            const Expanded(
+                child: Divider(
+                    color: Color.fromRGBO(0, 0, 0, 0.612), thickness: 2)),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(text, style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 0.612), fontWeight: FontWeight.w300)),
+              child: Text(text,
+                  style: const TextStyle(
+                      color: Color.fromRGBO(0, 0, 0, 0.612),
+                      fontWeight: FontWeight.w300)),
             ),
-            const Expanded(child: Divider(color: Color.fromRGBO(0, 0, 0, 0.612), thickness: 2)),
+            const Expanded(
+                child: Divider(
+                    color: Color.fromRGBO(0, 0, 0, 0.612), thickness: 2)),
           ],
         ),
         const SizedBox(height: 10),
@@ -233,9 +258,12 @@ class _LoginPageState extends State<LoginPage> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset('assets/images/google_logo.png', height: 24.0, width: 24.0),
+            Image.asset('assets/images/google_logo.png',
+                height: 24.0, width: 24.0),
             const SizedBox(width: 10),
-            const Text('Login com Google', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
+            const Text('Login com Google',
+                style: TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.w600)),
           ],
         ),
       ),

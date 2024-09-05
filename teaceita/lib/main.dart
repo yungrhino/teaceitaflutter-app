@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teaceita/provaiders/user_provider.dart';
+import 'package:teaceita/providers/user_provider.dart';
 import 'package:teaceita/view/routes/routes.dart';
 
 void main() {

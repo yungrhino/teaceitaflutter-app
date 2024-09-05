@@ -40,9 +40,12 @@ class _CadastroPageState extends State<Cadastropage> {
                 child: ExpansionTile(
                   title: const Text('Selecione uma Opção...'),
                   backgroundColor: const Color.fromRGBO(237, 248, 255, 1),
-                  collapsedBackgroundColor: const Color.fromRGBO(237, 248, 255, 1),
-                  tilePadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  childrenPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  collapsedBackgroundColor:
+                      const Color.fromRGBO(237, 248, 255, 1),
+                  tilePadding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  childrenPadding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   textColor: Colors.black,
                   iconColor: const Color.fromRGBO(200, 227, 255, 1),
                   collapsedIconColor: const Color.fromRGBO(200, 227, 255, 1),
@@ -67,7 +70,7 @@ class _CadastroPageState extends State<Cadastropage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const VisitantePage(),
+                            builder: (context) => VisitantePage(),
                           ),
                         );
                       },
@@ -89,7 +92,8 @@ class _CadastroPageState extends State<Cadastropage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const EmpresaPage(), // Navega para a página da empresa
+                            builder: (context) =>
+                                const EmpresaPage(), // Navega para a página da empresa
                           ),
                         );
                       },
@@ -125,11 +129,13 @@ class _CadastroPageState extends State<Cadastropage> {
           children: [
             TextSpan(
               text: 'TEA',
-              style: _headerStyle(45, FontWeight.bold).copyWith(color: Colors.black), // Texto preto
+              style: _headerStyle(45, FontWeight.bold)
+                  .copyWith(color: Colors.black), // Texto preto
             ),
             TextSpan(
               text: 'ceita',
-              style: _headerStyle(45, FontWeight.normal).copyWith(color: Colors.black), // Texto preto
+              style: _headerStyle(45, FontWeight.normal)
+                  .copyWith(color: Colors.black), // Texto preto
             ),
           ],
         ),
