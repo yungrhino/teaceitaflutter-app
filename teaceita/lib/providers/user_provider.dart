@@ -4,7 +4,7 @@ import 'package:teaceita/models/user.dart';
 class UserProvider extends ChangeNotifier {
   User _user = User(
       id: '',
-      name: '',
+      nome: '',
       email: '',
       datanascimento: '',
       sobrenome: '',

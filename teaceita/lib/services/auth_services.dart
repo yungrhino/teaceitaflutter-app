@@ -7,22 +7,22 @@ import 'package:teaceita/utils/constants.dart';
 class AuthService {
   void signUpUser({
     required BuildContext context,
+    required String nome,
+    required String sobrenome,
+    required String datanascimento,
+    required String cpf,
     required String email,
     required String password,
-    required String name,
-    required String sobrenome,
-    required String cpf,
-    required String datanascimento,
   }) async {
     try {
       User user = User(
           id: '',
-          name: '',
-          email: '',
-          datanascimento: '',
-          sobrenome: '',
-          cpf: '',
-          password: '',
+          nome: nome,
+          email: email,
+          datanascimento: datanascimento,
+          sobrenome: sobrenome,
+          cpf: cpf,
+          password: password,
           token: '');
 
       http.Response res = await http.post(

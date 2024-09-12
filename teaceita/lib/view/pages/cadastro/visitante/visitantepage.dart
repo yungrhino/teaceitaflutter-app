@@ -11,7 +11,7 @@ class Visitantepage extends StatefulWidget {
 class _VisitantepageState extends State<Visitantepage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
+  final TextEditingController nomeController = TextEditingController();
   final TextEditingController sobrenomeController = TextEditingController();
   final TextEditingController dataController = TextEditingController();
   final TextEditingController cpfController = TextEditingController();
@@ -21,7 +21,7 @@ class _VisitantepageState extends State<Visitantepage> {
         context: context,
         email: emailController.text,
         password: passwordController.text,
-        name: nameController.text,
+        nome: nomeController.text,
         sobrenome: sobrenomeController.text,
         cpf: cpfController.text,
         datanascimento: dataController.text);
@@ -55,12 +55,10 @@ class _VisitantepageState extends State<Visitantepage> {
                     _buildInputField('Senha',
                         obscureText: true, controller: passwordController),
                     const SizedBox(height: 20),
-                    _buildInputField('Nome', controller: nameController),
+                    _buildInputField('Nome', controller: nomeController),
                     const SizedBox(height: 20),
                     _buildInputField('Sobrenome',
                         controller: sobrenomeController),
-                    const SizedBox(height: 20),
-                    _buildGenderDropdown(),
                     const SizedBox(height: 20),
                     _buildInputField('Data de Nascimento',
                         controller: dataController),
