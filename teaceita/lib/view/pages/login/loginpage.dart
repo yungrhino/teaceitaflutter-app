@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:teaceita/custom_textfield.dart';
+import 'package:teaceita/services/auth_services.dart';
 import 'package:teaceita/view/components/inputtext.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,6 +11,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final AuthService authService = AuthService();
+
+  void loginUser() {
+    authService.signInUser(
+      context: context,
+      email: emailController.text,
+      password: passwordController.text,
+    );
+  }
+
   final Color primaryColor = const Color.fromRGBO(74, 173, 101, 1);
   final Color secondaryColor = Colors.black;
   final Color whiteColor = Colors.white;
@@ -39,16 +53,21 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 30),
             _buildSubtitle(),
             const SizedBox(height: 20),
-            _buildInputField(
-              'Digite seu usuário:',
-              'Número de telefone ou nome de usuário',
-              Icons.person,
+            SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: CustomTextField(
+                controller: emailController,
+                hintText: 'Enter your email',
+              ),
             ),
-            _buildInputField(
-              'Digite sua senha:',
-              'Senha',
-              Icons.remove_red_eye_rounded,
-              isPassword: true,
+            const SizedBox(height: 20),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: CustomTextField(
+                controller: passwordController,
+                hintText: 'Enter your password',
+              ),
             ),
             _buildRememberPasswordCheckbox(),
             const SizedBox(height: 20),
@@ -102,8 +121,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildInputField(String label, String hint, IconData suffixIcon,
-      {bool isPassword = false}) {
+  Widget _buildInputField(
+    String label,
+    String hint,
+    IconData suffixIcon, {
+    bool isPassword = false,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: Column(
@@ -158,7 +181,12 @@ class _LoginPageState extends State<LoginPage> {
         const SizedBox(width: 20),
         VerticalDivider(color: primaryColor, thickness: 2),
         const SizedBox(width: 1),
-        _buildButton('Acessar', primaryColor, whiteColor, isElevated: true),
+        _buildButton(
+          'Acessar',
+          primaryColor,
+          whiteColor,
+          isElevated: true,
+        ),
       ],
     );
   }
@@ -168,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
     return isElevated
         ? ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamed('/home');
+              loginUser();
             },
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),

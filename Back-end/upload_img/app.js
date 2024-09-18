@@ -4,11 +4,10 @@ const app = express();
 require("dotenv").config();
 require("./db");
 
+const PictureRouter = require("./routes/picture")
 const port = process.env.PORT || 3000;
 
-const pictureRouter = require("./routes/picture");
-
-app.use("/pictures", pictureRouter);
+app.use("/pictures", PictureRouter);
 
 app.listen(port, () => {
     console.log(`o servidor esta rodando ${port}`);
