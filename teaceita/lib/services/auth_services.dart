@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:teaceita/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teaceita/view/pages/home/homepage.dart';
+import 'package:teaceita/view/pages/login/loginpage.dart';
 
 class AuthService {
   void signUpUser({
@@ -86,5 +87,55 @@ class AuthService {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+  }
+
+  void getUserData(
+    BuildContext context,
+  ) async {
+    try {
+      var userProvider = Provider.of<UserProvider>(context, listen: false);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      if (token == null) {
+        prefs.setString('x-auth-token', '');
+      }
+
+      var tokenRes = await http.post(
+        Uri.parse('${Constants.uri}/tokenIsValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token!,
+        },
+      );
+
+      var response = jsonDecode(tokenRes.body);
+
+      if (response == true) {
+        http.Response userRes = await http.get(
+          Uri.parse('${Constants.uri}/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token
+          },
+        );
+
+        userProvider.setUser(userRes.body);
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void signOut(BuildContext context) async {
+    final navigator = Navigator.of(context);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('x-auth-token', '');
+    navigator.pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => const LoginPage(),
+      ),
+      (route) => false,
+    );
   }
 }

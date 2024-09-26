@@ -197,6 +197,7 @@ class _LoginPageState extends State<LoginPage> {
         ? ElevatedButton(
             onPressed: () {
               loginUser();
+              //Navigator.of(context).pushNamed('/home');
             },
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
