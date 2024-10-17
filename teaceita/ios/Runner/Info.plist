@@ -45,5 +45,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+  
+	<!-- Permissões para acesso à câmera e biblioteca de fotos -->
+	<key>NSCameraUsageDescription</key>
+	<string>Este app precisa acessar a câmera para tirar fotos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Este app precisa acessar a biblioteca de fotos para selecionar imagens.</string>
 </dict>
 </plist>

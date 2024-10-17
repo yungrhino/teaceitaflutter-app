@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:teaceita/models/user.dart';
 import 'package:teaceita/providers/user_provider.dart';
 import 'package:teaceita/services/auth_services.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,36 +19,89 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late User user;
+  List<Map<String, String>> imageData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchImages();
+  }
+
+  Future<void> fetchImages() async {
+    try {
+      final response =
+          await http.get(Uri.parse('http://192.168.1.107:4000/pictures'));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData = json.decode(response.body);
+        print('Dados recebidos: $jsonData');
+
+        if (jsonData is List) {
+          setState(() {
+            imageData = jsonData
+                .map((item) {
+                  return {
+                    'src': item['src'] as String,
+                    'description': item['description'] as String,
+                  };
+                })
+                .toList()
+                .cast<Map<String, String>>();
+          });
+        } else {
+          print('A resposta não é uma lista: $jsonData');
+        }
+      } else {
+        print('Erro ao buscar imagens: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Erro ao buscar imagens: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    user = Provider.of<UserProvider>(context).user; // Inicialize user
+    user = Provider.of<UserProvider>(context).user;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
         leading: Builder(
           builder: (context) => IconButton(
-            icon: const Icon(Icons.menu), // Ícone do menu hambúrguer
+            icon: const Icon(Icons.menu),
             onPressed: () {
-              // Usando o contexto do Builder para abrir o Drawer
               Scaffold.of(context).openDrawer();
             },
           ),
         ),
       ),
-      drawer: _buildDrawer(), // Adiciona o menu lateral
+      drawer: _buildDrawer(),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Botão "Home"
-              },
-              child: const Text('Home'),
-            ),
-          ],
+        child: ListView.builder(
+          itemCount: imageData.length,
+          itemBuilder: (context, index) {
+            return Card(
+              margin: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.network(
+                    imageData[index]['src']!,
+                    height: 200,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      imageData[index]['description']!,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
