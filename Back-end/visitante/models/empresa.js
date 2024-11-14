@@ -35,10 +35,6 @@ const empresaSchema = mongoose.Schema({
         required: true,
         type: String,
     },
-    telefone: {
-        required: true,
-        type: String,
-    },
     endereco: {
         required: true,
         type: String,

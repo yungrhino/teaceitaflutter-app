@@ -2,13 +2,13 @@ require('dotenv').config();
 const path = require('path');
 const express = require("express");
 const bcryptjs = require("bcryptjs");
-const Empresa = require("../models/empresa"); // Modelo Empresa
-const empresaRouter = express.Router();
+const Psicologo = require("../models/psicologo");
+const psicologoRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const auth = require("../middleware/auth");
 const nodemailer = require('nodemailer');
 
-let tempEmpresaData = {};
+let tempPsicologoData = {};
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -18,33 +18,33 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-empresaRouter.get("/redefinirSenha", (req, res) => {
-  res.sendFile(path.join(__dirname, 'redefinirSenha.html'));
+psicologoRouter.get("/resetPassword", (req, res) => {
+  res.sendFile(path.join(__dirname, 'resetPassword.html'));
 });
 
 // Solicitação de Senha
-empresaRouter.post("/api/solicitarRedefinicaoSenha", async (req, res) => {
+psicologoRouter.post("/api/restPasswordRequest", async (req, res) => {
   try {
     const { email } = req.body;
-    const empresa = await Empresa.findOne({ email });
+    const psicologo = await Psicologo.findOne({ email });
 
-    if (!empresa) {
-      return res.status(404).json({ error: "Empresa não encontrada." });
+    if (!psicologo) {
+      return res.status(404).json({ error: "Psicólogo não encontrado." });
     }
 
-    if (empresa.resetTokenUsed) {
-      empresa.resetTokenUsed = false;
-      await empresa.save();
+    if (psicologo.resetTokenUsed) {
+      psicologo.resetTokenUsed = false;
+      await psicologo.save();
     }
 
-    const restToken = jwt.sign({ id: empresa.id }, "RestPassword", { expiresIn: "5m" });
-    const restLink = `http://localhost:3000/redefinirSenha?token=${restToken}`;
+    const restToken = jwt.sign({ id: psicologo.id }, "RestPassword", { expiresIn: "5m" });
+    const restLink = `http://localhost:3000/resetPassword?token=${restToken}`;
     const mailOptions = {
       from: process.env.USER_EMAIL,
       to: email,
       subject: "Recuperação de senha",
       html: `
-        <p>Olá, ${empresa.nome},</p>
+        <p>Olá, ${psicologo.name},</p>
         <p>Clique no link abaixo para redefinir sua senha:</p>
         <a href="${restLink}">Redefinir Senha</a>
         <p>Este link é válido por 1 hora.</p>`,
@@ -58,24 +58,24 @@ empresaRouter.post("/api/solicitarRedefinicaoSenha", async (req, res) => {
 });
 
 // Rota para redefinir senha
-empresaRouter.post("/api/redefinirSenha", async (req, res) => {
+psicologoRouter.post("/api/resetPassword", async (req, res) => {
   try {
-    const { token, novaSenha } = req.body;
+    const { token, newPassword } = req.body;
 
     const decoded = jwt.verify(token, "RestPassword");
-    const empresa = await Empresa.findById(decoded.id);
+    const psicologo = await Psicologo.findById(decoded.id);
 
-    if (!empresa) {
-      return res.status(404).json({ error: "Empresa não encontrada." });
+    if (!psicologo) {
+      return res.status(404).json({ error: "Psicólogo não encontrado." });
     }
 
-    empresa.resetTokenUsed = true;
-    await empresa.save();
+    psicologo.resetTokenUsed = true;
+    await psicologo.save();
 
-    const hashedPassword = await bcryptjs.hash(novaSenha, 8);
+    const hashedPassword = await bcryptjs.hash(newPassword, 8);
 
-    empresa.password = hashedPassword;
-    await empresa.save();
+    psicologo.password = hashedPassword;
+    await psicologo.save();
 
     res.status(200).json({ message: "Senha redefinida com sucesso!" });
   } catch (error) {
@@ -83,23 +83,23 @@ empresaRouter.post("/api/redefinirSenha", async (req, res) => {
   }
 });
 
-// Cadastro de Empresa
-empresaRouter.post("/api/cadastroEmpresa", async (req, res) => {
+// Cadastro de Psicólogo
+psicologoRouter.post("/api/cadastroPsicologo", async (req, res) => {
   try {
-    const { name, email, password, cnpj, endereco } = req.body;
+    const { name, email, password, endereco, especialidade, crp } = req.body;
 
-    const existingEmpresa = await Empresa.findOne({ email });
-    if (existingEmpresa) {
-      return res.status(400).json({ msg: "Este e-mail já existe!" });
+    const existingPsicologo = await Psicologo.findOne({ email });
+    if (existingPsicologo) {
+      return res.status(400).json({ msg: "Este E-mail já existe!" });
     }
 
-    tempEmpresaData[email] = { name, cnpj, telefone, endereco, password };
+    tempPsicologoData[email] = { name, endereco, especialidade, crp, password };
 
     const hashedPassword = await bcryptjs.hash(password, 8);
 
-    const verificationToken = jwt.sign({ email, name, cnpj, telefone, endereco }, "verificationKey", { expiresIn: "30m" });
+    const verificationToken = jwt.sign({ email, name, endereco, especialidade, crp }, "verificationKey", { expiresIn: "30m" });
 
-    const verificationLink = `http://localhost:3000/api/verificarEmail?token=${verificationToken}`;
+    const verificationLink = `http://localhost:3000/api/verificarPsicologo?token=${verificationToken}`;
     const mailOptions = {
       from: process.env.USER_EMAIL,
       to: email,
@@ -139,7 +139,7 @@ empresaRouter.post("/api/cadastroEmpresa", async (req, res) => {
 });
 
 // Verificação de e-mail
-empresaRouter.get("/api/verificarEmail", async (req, res) => {
+psicologoRouter.get("/api/verificarPsicologo", async (req, res) => {
   try {
     const { token } = req.query;
     if (!token) {
@@ -149,27 +149,28 @@ empresaRouter.get("/api/verificarEmail", async (req, res) => {
     const decoded = jwt.verify(token, "verificationKey");
     const { email } = decoded;
 
-    const empresaData = tempEmpresaData[email];
-    if (!empresaData) {
-      return res.status(400).json({ error: "Dados da empresa não encontrados." });
+    const userData = tempPsicologoData[email];
+    if (!userData) {
+      return res.status(400).json({ error: "Dados do psicólogo não encontrados." });
     }
 
-    if (!empresaData.password) {
+    if (!userData.password) {
       return res.status(400).json({ error: "Senha não definida." });
     }
 
-    const hashedPassword = await bcryptjs.hash(empresaData.password, 8);
-    const empresa = new Empresa({
+    const hashedPassword = await bcryptjs.hash(userData.password, 8);
+    const psicologo = new Psicologo({
       email,
       password: hashedPassword,
-      name: empresaData.name,
-      cnpj: empresaData.cnpj,
-      endereco: empresaData.endereco,
+      name: userData.name,
+      endereco: userData.endereco,
+      especialidade: userData.especialidade,
+      crp: userData.crp,
       isVerified: true
     });
-    await empresa.save();
+    await psicologo.save();
 
-    delete tempEmpresaData[email];
+    delete tempPsicologoData[email];
 
     res.sendFile(path.join(__dirname, "/verificationSuccess.html"));
   } catch (e) {
@@ -178,48 +179,48 @@ empresaRouter.get("/api/verificarEmail", async (req, res) => {
   }
 });
 
-// Login de Empresa
-empresaRouter.post("/api/loginEmpresa", async (req, res) => {
+// Login de Psicólogo
+psicologoRouter.post("/api/signin", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const empresa = await Empresa.findOne({ email });
-    if (!empresa) {
-      return res.status(400).json({ msg: "Empresa não encontrada" });
+    const psicologo = await Psicologo.findOne({ email });
+    if (!psicologo) {
+      return res.status(400).json({ msg: "Psicólogo não encontrado" });
     }
 
-    const isMatch = await bcryptjs.compare(password, empresa.password);
+    const isMatch = await bcryptjs.compare(password, psicologo.password);
     if (!isMatch) {
       return res.status(400).json({ msg: "Senha incorreta" });
     }
 
-    const token = jwt.sign({ id: empresa._id }, "passwordKey");
-    res.json({ token, ...empresa._doc });
+    const token = jwt.sign({ id: psicologo._id }, "passwordKey");
+    res.json({ token, ...psicologo._doc });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
 
-// Validação de Token para Empresa
-empresaRouter.post("/tokenEmpresaValido", async (req, res) => {
+// Validação de Token para Psicólogo
+psicologoRouter.post("/tokenIsValid", async (req, res) => {
   try {
     const token = req.header("x-auth-token");
     if (!token) return res.json(false);
     const verified = jwt.verify(token, "passwordKey");
     if (!verified) return res.json(false);
 
-    const empresa = await Empresa.findById(verified.id);
-    if (!empresa) return res.json(false);
+    const psicologo = await Psicologo.findById(verified.id);
+    if (!psicologo) return res.json(false);
     res.json(true);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
 
-// Obter Empresa
-empresaRouter.get("/", auth, async (req, res) => {
-  const empresa = await Empresa.findById(req.user);
-  res.json({ ...empresa._doc, token: req.token });
+// Obter Psicólogo
+psicologoRouter.get("/", auth, async (req, res) => {
+  const psicologo = await Psicologo.findById(req.user);
+  res.json({ ...psicologo._doc, token: req.token });
 });
 
-module.exports = empresaRouter;
+module.exports = psicologoRouter;
