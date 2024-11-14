@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:teaceita/services/auth_services.dart';
+import 'package:teaceita/view/pages/login/loginpage.dart';
 
 class Visitantepage extends StatefulWidget {
   const Visitantepage({super.key});
@@ -16,8 +17,8 @@ class _VisitantepageState extends State<Visitantepage> {
   final TextEditingController dataController = TextEditingController();
   final TextEditingController cpfController = TextEditingController();
   final AuthService authService = AuthService();
-  void signupUser() {
-    authService.signUpUser(
+  void signupUser() async {
+    bool success = await authService.signUpUser(
         context: context,
         email: emailController.text,
         password: passwordController.text,
@@ -25,6 +26,13 @@ class _VisitantepageState extends State<Visitantepage> {
         sobrenome: sobrenomeController.text,
         cpf: cpfController.text,
         datanascimento: dataController.text);
+
+    if (success) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+    }
   }
 
   @override
@@ -68,11 +76,11 @@ class _VisitantepageState extends State<Visitantepage> {
                     ElevatedButton(
                       onPressed: signupUser,
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(Colors.blue),
-                        textStyle: WidgetStateProperty.all(
+                        backgroundColor: MaterialStateProperty.all(Colors.blue),
+                        textStyle: MaterialStateProperty.all(
                           const TextStyle(color: Colors.white),
                         ),
-                        minimumSize: WidgetStateProperty.all(
+                        minimumSize: MaterialStateProperty.all(
                           Size(MediaQuery.of(context).size.width / 2.5, 50),
                         ),
                       ),

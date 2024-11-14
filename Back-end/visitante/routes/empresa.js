@@ -2,13 +2,13 @@ require('dotenv').config();
 const path = require('path');
 const express = require("express");
 const bcryptjs = require("bcryptjs");
-const User = require("../models/user");
-const authRouter = express.Router();
+const Empresa = require("../models/empresa"); // Modelo Empresa
+const empresaRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const auth = require("../middleware/auth");
 const nodemailer = require('nodemailer');
 
-let tempUserData = {};
+let tempEmpresaData = {};
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -18,64 +18,64 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-authRouter.get("/resetPassword", (req, res) => {
-  res.sendFile(path.join(__dirname, 'resetPassword.html'));
+empresaRouter.get("/redefinirSenha", (req, res) => {
+  res.sendFile(path.join(__dirname, 'redefinirSenha.html'));
 });
 
-//Solicitação de Senha
-authRouter.post("/api/restPasswordRequest", async (req, res) => {
+// Solicitação de Senha
+empresaRouter.post("/api/solicitarRedefinicaoSenha", async (req, res) => {
   try {
     const { email } = req.body;
-    const user = await User.findOne({ email });
+    const empresa = await Empresa.findOne({ email });
 
-    if (!user) {
-      return res.status(404).json({ error: "Usuário não encontrado." })
+    if (!empresa) {
+      return res.status(404).json({ error: "Empresa não encontrada." });
     }
 
-    if (user.resetTokenUsed) {
-      user.resetTokenUsed = false;
-      await user.save();
+    if (empresa.resetTokenUsed) {
+      empresa.resetTokenUsed = false;
+      await empresa.save();
     }
 
-    const restToken = jwt.sign({ id: user.id }, "RestPassword", { expiresIn: "5m" });
-    const restLink = `http://localhost:3000/resetPassword?token=${restToken}`;
+    const restToken = jwt.sign({ id: empresa.id }, "RestPassword", { expiresIn: "5m" });
+    const restLink = `http://localhost:3000/redefinirSenha?token=${restToken}`;
     const mailOptions = {
       from: process.env.USER_EMAIL,
       to: email,
       subject: "Recuperação de senha",
       html: `
-        <p>Olá, ${user.name},</p>
+        <p>Olá, ${empresa.nome},</p>
         <p>Clique no link abaixo para redefinir sua senha:</p>
         <a href="${restLink}">Redefinir Senha</a>
         <p>Este link é válido por 1 hora.</p>`,
     };
 
     await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: "Link de redefinição de senha enviado para seu E-mail." })
+    res.status(200).json({ message: "Link de redefinição de senha enviado para seu E-mail." });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-//Rota para redefinir senha
-authRouter.post("/api/resetPassword", async (req, res) => {
+// Rota para redefinir senha
+empresaRouter.post("/api/redefinirSenha", async (req, res) => {
   try {
-    const { token, newPassword } = req.body;
+    const { token, novaSenha } = req.body;
 
     const decoded = jwt.verify(token, "RestPassword");
-    const user = await User.findById(decoded.id);
+    const empresa = await Empresa.findById(decoded.id);
 
-    if (!user) {
-      return res.status(404).json({ error: "Usuário não encontrado." })
+    if (!empresa) {
+      return res.status(404).json({ error: "Empresa não encontrada." });
     }
 
-    user.resetTokenUsed = true;
-    await user.save();
+    empresa.resetTokenUsed = true;
+    await empresa.save();
 
-    const hashedPassword = await bcryptjs.hash(newPassword, 8);
+    const hashedPassword = await bcryptjs.hash(novaSenha, 8);
 
-    user.password = hashedPassword;
-    await user.save();
+    empresa.password = hashedPassword;
+    await empresa.save();
 
     res.status(200).json({ message: "Senha redefinida com sucesso!" });
   } catch (error) {
@@ -83,23 +83,23 @@ authRouter.post("/api/resetPassword", async (req, res) => {
   }
 });
 
-// CRIANDO USER
-authRouter.post("/api/signUp", async (req, res) => {
+// Cadastro de Empresa
+empresaRouter.post("/api/cadastroEmpresa", async (req, res) => {
   try {
-    const { name, email, password, datanascimento, cpf, sobrenome } = req.body;
+    const { name, email, password, cnpj, telefone, endereco } = req.body;
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ msg: "Está E-mail já existe!" });
+    const existingEmpresa = await Empresa.findOne({ email });
+    if (existingEmpresa) {
+      return res.status(400).json({ msg: "Este e-mail já existe!" });
     }
 
-    tempUserData[email] = { name, datanascimento, cpf, sobrenome, password };
+    tempEmpresaData[email] = { name, cnpj, telefone, endereco, password };
 
     const hashedPassword = await bcryptjs.hash(password, 8);
 
-    const verificationToken = jwt.sign({ email, name, datanascimento, cpf, sobrenome }, "verificationKey", { expiresIn: "30m" });
+    const verificationToken = jwt.sign({ email, name, cnpj, telefone, endereco }, "verificationKey", { expiresIn: "30m" });
 
-    const verificationLink = `http://localhost:3000/api/verifyEmail?token=${verificationToken}`;
+    const verificationLink = `http://localhost:3000/api/verificarEmail?token=${verificationToken}`;
     const mailOptions = {
       from: process.env.USER_EMAIL,
       to: email,
@@ -138,8 +138,8 @@ authRouter.post("/api/signUp", async (req, res) => {
   }
 });
 
-//VERIFICADO E-MAIL
-authRouter.get("/api/verifyEmail", async (req, res) => {
+// Verificação de e-mail
+empresaRouter.get("/api/verificarEmail", async (req, res) => {
   try {
     const { token } = req.query;
     if (!token) {
@@ -149,28 +149,28 @@ authRouter.get("/api/verifyEmail", async (req, res) => {
     const decoded = jwt.verify(token, "verificationKey");
     const { email } = decoded;
 
-    const userData = tempUserData[email];
-    if (!userData) {
-      return res.status(400).json({ error: "Dados do usuário não encontrados." });
+    const empresaData = tempEmpresaData[email];
+    if (!empresaData) {
+      return res.status(400).json({ error: "Dados da empresa não encontrados." });
     }
 
-    if (!userData.password) {
+    if (!empresaData.password) {
       return res.status(400).json({ error: "Senha não definida." });
     }
 
-    const hashedPassword = await bcryptjs.hash(userData.password, 8);
-    const user = new User({
+    const hashedPassword = await bcryptjs.hash(empresaData.password, 8);
+    const empresa = new Empresa({
       email,
       password: hashedPassword,
-      name: userData.name,
-      sobrenome: userData.sobrenome,
-      datanascimento: userData.datanascimento,
-      cpf: userData.cpf,
+      name: empresaData.name,
+      cnpj: empresaData.cnpj,
+      telefone: empresaData.telefone,
+      endereco: empresaData.endereco,
       isVerified: true
     });
-    await user.save();
+    await empresa.save();
 
-    delete tempUserData[email];
+    delete tempEmpresaData[email];
 
     res.sendFile(path.join(__dirname, "/verificationSuccess.html"));
   } catch (e) {
@@ -179,49 +179,48 @@ authRouter.get("/api/verifyEmail", async (req, res) => {
   }
 });
 
-// LOGANDO USER
-
-authRouter.post("/api/signin", async (req, res) => {
+// Login de Empresa
+empresaRouter.post("/api/loginEmpresa", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ msg: "Usuário não encontrado" });
+    const empresa = await Empresa.findOne({ email });
+    if (!empresa) {
+      return res.status(400).json({ msg: "Empresa não encontrada" });
     }
 
-    const isMatch = await bcryptjs.compare(password, user.password);
+    const isMatch = await bcryptjs.compare(password, empresa.password);
     if (!isMatch) {
       return res.status(400).json({ msg: "Senha incorreta" });
     }
 
-    const token = jwt.sign({ id: user._id }, "passwordKey");
-    res.json({ token, ...user._doc });
+    const token = jwt.sign({ id: empresa._id }, "passwordKey");
+    res.json({ token, ...empresa._doc });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
 
-// VALIDANDO TOKEN USER
-authRouter.post("/tokenIsValid", async (req, res) => {
+// Validação de Token para Empresa
+empresaRouter.post("/tokenEmpresaValido", async (req, res) => {
   try {
     const token = req.header("x-auth-token");
     if (!token) return res.json(false);
     const verified = jwt.verify(token, "passwordKey");
     if (!verified) return res.json(false);
 
-    const user = await User.findById(verified.id);
-    if (!user) return res.json(false);
+    const empresa = await Empresa.findById(verified.id);
+    if (!empresa) return res.json(false);
     res.json(true);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
 
-// get user
-authRouter.get("/", auth, async (req, res) => {
-  const user = await User.findById(req.user);
-  res.json({ ...user._doc, token: req.token });
+// Obter Empresa
+empresaRouter.get("/", auth, async (req, res) => {
+  const empresa = await Empresa.findById(req.user);
+  res.json({ ...empresa._doc, token: req.token });
 });
 
-module.exports = authRouter;
+module.exports = empresaRouter;

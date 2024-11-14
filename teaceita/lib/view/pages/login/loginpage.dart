@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildLogo(),
             const SizedBox(height: 10),
@@ -196,8 +196,8 @@ class _LoginPageState extends State<LoginPage> {
     return isElevated
         ? ElevatedButton(
             onPressed: () {
-              //loginUser();
-              Navigator.of(context).pushNamed('/home');
+              loginUser();
+              //Navigator.of(context).pushNamed('/home');
             },
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),

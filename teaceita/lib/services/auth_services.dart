@@ -12,7 +12,7 @@ import 'package:teaceita/view/pages/home/homepage.dart';
 import 'package:teaceita/view/pages/login/loginpage.dart';
 
 class AuthService {
-  void signUpUser({
+  Future<bool> signUpUser({
     required BuildContext context,
     required String nome,
     required String sobrenome,
@@ -39,15 +39,20 @@ class AuthService {
             'content-type': 'application/json; charset=UTF-8',
           });
 
+      bool isSuccess = false;
+
       httpErrorHandle(
           response: res,
           context: context,
           onSuccess: () {
             showSnackBar(
                 context, 'Account created! Login with the same credentials!');
+            isSuccess = true;
           });
+      return isSuccess;
     } catch (e) {
       showSnackBar(context, e.toString());
+      return false;
     }
   }
 
