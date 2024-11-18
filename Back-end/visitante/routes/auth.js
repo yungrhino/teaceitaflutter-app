@@ -181,29 +181,100 @@ authRouter.post("/api/signUp", async (req, res) => {
     const verificationToken = jwt.sign({ email, name, datanascimento, cpf, sobrenome }, "verificationKey", { expiresIn: "30m" });
 
     const verificationLink = `http://localhost:3000/api/verifyEmail?token=${verificationToken}`;
-    const mailOptions = {
-      from: process.env.USER_EMAIL,
-      to: email,
-      subject: 'Verifique seu e-mail',
-      html: `
-      <div style="font-family: Arial, sans-serif; color: #333;">
-        <h2>Olá, ${name}!</h2>
-        <p>Obrigado por se cadastrar. Por favor, verifique seu e-mail para ativar sua conta.</p>
-        <p>Clique no botão abaixo para verificar seu e-mail:</p>
-        <a href="${verificationLink}" style="
+const mailOptions = {
+  from: process.env.USER_EMAIL,
+  to: email,
+  subject: "Verifique seu e-mail - TEAceita",
+  html: `
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>TEAceita - Verifique seu E-mail</title>
+      <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+      <style>
+        /* Estilos gerais */
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+
+        /* Estilização do contêiner */
+        .container {
+          background-color: #fff;
+          padding: 20px 30px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 400px;
+          text-align: center;
+        }
+
+        /* Imagem */
+        .logo {
+          max-width: 150px;
+          margin: 0 auto 20px;
+        }
+
+        /* Título */
+        h2 {
+          text-align: center;
+          color: #333;
+          margin-bottom: 20px;
+        }
+
+        /* Botão */
+        .btn {
           display: inline-block;
-          padding: 10px 20px;
-          margin-top: 10px;
-          color: #fff;
-          background-color: #007bff;
+          background-color: #4aad65;
+          color: white;
           text-decoration: none;
+          padding: 10px 20px;
+          font-size: 16px;
           border-radius: 5px;
-        ">Verificar E-mail</a>
+          cursor: pointer;
+          transition: background-color 0.3s;
+          margin-top: 10px;
+        }
+
+        .btn:hover {
+          background-color: #3b8f53;
+        }
+
+        .btn:active {
+          background-color: #347c49;
+        }
+
+        /* Texto adicional */
+        p {
+          color: #555;
+          line-height: 1.5;
+          margin: 10px 0;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <img src="../assets/teaceita.png" alt="Logo TEAceita" class="logo">
+        <h2>Olá, ${name}!</h2>
+        <p>Obrigado por se cadastrar na TEAceita. Por favor, verifique seu e-mail para ativar sua conta.</p>
+        <p>Clique no botão abaixo para verificar seu e-mail:</p>
+        <a href="${verificationLink}" class="btn">Verificar E-mail</a>
         <p style="margin-top: 20px;">Se você não solicitou este e-mail, ignore esta mensagem.</p>
         <p>Atenciosamente,<br>TEAceita</p>
       </div>
-    `,
-    };
+    </body>
+    </html>
+  `,
+};
+
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
