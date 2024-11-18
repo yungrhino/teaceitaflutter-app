@@ -192,7 +192,7 @@ const mailOptions = {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>TEAceita - Verifique seu E-mail</title>
-      <link rel="icon" href="https://raw.githubusercontent.com/yungrhino/teaceita-assets/refs/heads/main/assets/teaceita.png" type="image/x-icon">
+      <link rel="icon" href="https://raw.githubusercontent.com/yungrhino/teaceita-assets/refs/heads/main/assets/favicon.ico" type="image/x-icon">
       <style>
         /* Estilos gerais */
         body {
@@ -262,7 +262,7 @@ const mailOptions = {
     </head>
     <body>
       <div class="container">
-        <img src="https://raw.githubusercontent.com/yungrhino/teaceitaflutter-app/9c904c71b463ecb323e0b5b58ffec0116534a3f0/Back-end/visitante/assets/teaceita.png?token=A72DWSJDDOSE7WLP66BYSHLHHORK4" alt="Logo TEAceita" class="logo">
+        <img src="https://raw.githubusercontent.com/yungrhino/teaceita-assets/refs/heads/main/assets/teaceita.png" alt="Logo TEAceita" class="logo">
         <h2>Olá, ${name}!</h2>
         <p>Obrigado por se cadastrar na TEAceita. Por favor, verifique seu e-mail para ativar sua conta.</p>
         <p>Clique no botão abaixo para verificar seu e-mail:</p>
