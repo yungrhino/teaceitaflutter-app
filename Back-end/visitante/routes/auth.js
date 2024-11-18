@@ -192,7 +192,7 @@ const mailOptions = {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>TEAceita - Verifique seu E-mail</title>
-      <link rel="icon" href="https://raw.githubusercontent.com/yungrhino/teaceitaflutter-app/9c904c71b463ecb323e0b5b58ffec0116534a3f0/Back-end/visitante/assets/favicon.ico?token=GHSAT0AAAAAAC2RJ72HSMT5KATCZXCPWOD2ZZ3ULZA" type="image/x-icon">
+      <link rel="icon" href="https://raw.githubusercontent.com/yungrhino/teaceita-assets/refs/heads/main/assets/teaceita.png" type="image/x-icon">
       <style>
         /* Estilos gerais */
         body {
