@@ -37,18 +37,99 @@ authRouter.post("/api/restPasswordRequest", async (req, res) => {
       await user.save();
     }
 
-    const restToken = jwt.sign({ id: user.id }, "RestPassword", { expiresIn: "5m" });
-    const restLink = `http://localhost:3000/resetPassword?token=${restToken}`;
-    const mailOptions = {
-      from: process.env.USER_EMAIL,
-      to: email,
-      subject: "Recuperação de senha",
-      html: `
+const restToken = jwt.sign({ id: user.id }, "RestPassword", { expiresIn: "5m" });
+const restLink = `http://localhost:3000/resetPassword?token=${restToken}`;
+const mailOptions = {
+  from: process.env.USER_EMAIL,
+  to: email,
+  subject: "Recuperação de senha - TEAceita",
+  html: `
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>TEAceita - Redefinir Senha</title>
+      <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+      <style>
+        /* Estilos gerais */
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+
+        /* Estilização do contêiner */
+        .container {
+          background-color: #fff;
+          padding: 20px 30px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 400px;
+          text-align: center;
+        }
+
+        /* Imagem */
+        .logo {
+          max-width: 150px;
+          margin: 0 auto 20px;
+        }
+
+        /* Título */
+        h2 {
+          text-align: center;
+          color: #333;
+          margin-bottom: 20px;
+        }
+
+        /* Botão */
+        .btn {
+          display: inline-block;
+          background-color: #4aad65;
+          color: white;
+          text-decoration: none;
+          padding: 10px 20px;
+          font-size: 16px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+          background-color: #3b8f53;
+        }
+
+        .btn:active {
+          background-color: #347c49;
+        }
+
+        /* Texto adicional */
+        p {
+          color: #555;
+          line-height: 1.5;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <img src="../assets/teaceita.png" alt="Logo TEAceita" class="logo">
+        <h2>Redefinir Senha</h2>
         <p>Olá, ${user.name},</p>
-        <p>Clique no link abaixo para redefinir sua senha:</p>
-        <a href="${restLink}">Redefinir Senha</a>
-        <p>Este link é válido por 1 hora.</p>`,
-    };
+        <p>Clique no botão abaixo para redefinir sua senha:</p>
+        <a href="${restLink}" class="btn">Redefinir Senha</a>
+        <p>Este link é válido por 5 minutos.</p>
+      </div>
+    </body>
+    </html>
+  `,
+};
+
 
     await transporter.sendMail(mailOptions);
     res.status(200).json({ message: "Link de redefinição de senha enviado para seu E-mail." })
