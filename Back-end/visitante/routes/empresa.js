@@ -231,7 +231,7 @@ const mailOptions = {
           padding: 10px 20px;
           margin-top: 20px;
           color: #black;
-          background-color: #007bff;
+          background-color: #4aad65;
           text-decoration: none;
           font-size: 16px;
           border-radius: 5px;

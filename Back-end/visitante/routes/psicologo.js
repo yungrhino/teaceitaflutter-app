@@ -222,7 +222,7 @@ const mailOptions = {
         /* Botão */
         .btn {
           display: inline-block;
-          background-color: #007bff;
+          background-color: #4aad65;
           color: white;
           text-decoration: none;
           padding: 10px 20px;
