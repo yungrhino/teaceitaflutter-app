@@ -50,7 +50,7 @@ const mailOptions = {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>TEAceita - Recuperação de Senha</title>
-      <link rel="icon" href="https://raw.githubusercontent.com/yungrhino/teaceitaflutter-app/9c904c71b463ecb323e0b5b58ffec0116534a3f0/Back-end/visitante/assets/favicon.ico?token=GHSAT0AAAAAAC2RJ72HSMT5KATCZXCPWOD2ZZ3ULZA" type="image/x-icon">
+      <link rel="icon" href="https://raw.githubusercontent.com/yungrhino/teaceita-assets/refs/heads/main/assets/favicon.ico" type="image/x-icon">
       <style>
         /* Estilos gerais */
         body {
@@ -120,7 +120,7 @@ const mailOptions = {
     </head>
     <body>
       <div class="container">
-        <img src="../assets/teaceita.png" alt="Logo TEAceita" class="logo">
+        <img src="https://raw.githubusercontent.com/yungrhino/teaceita-assets/refs/heads/main/assets/teaceita.png" alt="Logo TEAceita" class="logo">
         <h2>Recuperação de Senha</h2>
         <p>Olá, ${empresa.nome},</p>
         <p>Clique no botão abaixo para redefinir sua senha:</p>
@@ -182,31 +182,93 @@ empresaRouter.post("/api/cadastroEmpresa", async (req, res) => {
     const hashedPassword = await bcryptjs.hash(password, 8);
 
     const verificationToken = jwt.sign({ email, name, cnpj, telefone, endereco }, "verificationKey", { expiresIn: "30m" });
+const verificationLink = `http://localhost:3000/api/verificarEmail?token=${verificationToken}`;
+const mailOptions = {
+  from: process.env.USER_EMAIL,
+  to: email,
+  subject: 'Verifique seu e-mail - TEAceita',
+  html: `
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>TEAceita - Verificação de E-mail</title>
+      <link rel="icon" href="https://raw.githubusercontent.com/yungrhino/teaceita-assets/refs/heads/main/assets/favicon.ico" type="image/x-icon">
+      <style>
+        /* Estilos gerais */
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
 
-    const verificationLink = `http://localhost:3000/api/verificarEmail?token=${verificationToken}`;
-    const mailOptions = {
-      from: process.env.USER_EMAIL,
-      to: email,
-      subject: 'Verifique seu e-mail',
-      html: `
-      <div style="font-family: Arial, sans-serif; color: #333;">
-        <h2>Olá, ${name}!</h2>
-        <p>Obrigado por se cadastrar. Por favor, verifique seu e-mail para ativar sua conta.</p>
-        <p>Clique no botão abaixo para verificar seu e-mail:</p>
-        <a href="${verificationLink}" style="
+        /* Contêiner principal */
+        .container {
+          background-color: #fff;
+          padding: 20px 30px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 400px;
+          text-align: center;
+        }
+
+        /* Logo */
+        .logo {
+          max-width: 150px;
+          margin: 0 auto 20px;
+        }
+
+        /* Botão de verificação */
+        .btn {
           display: inline-block;
           padding: 10px 20px;
-          margin-top: 10px;
-          color: #fff;
+          margin-top: 20px;
+          color: #black;
           background-color: #007bff;
           text-decoration: none;
+          font-size: 16px;
           border-radius: 5px;
-        ">Verificar E-mail</a>
-        <p style="margin-top: 20px;">Se você não solicitou este e-mail, ignore esta mensagem.</p>
-        <p>Atenciosamente,<br>TEAceita</p>
+          transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+          background-color: #0056b3;
+        }
+
+        .btn:active {
+          background-color: #004494;
+        }
+
+        /* Texto adicional */
+        p {
+          color: #555;
+          line-height: 1.5;
+          margin: 10px 0;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <img src="https://raw.githubusercontent.com/yungrhino/teaceita-assets/refs/heads/main/assets/teaceita.png" alt="Logo TEAceita" class="logo">
+        <h2>Verificação de E-mail</h2>
+        <p>Olá, ${name}!</p>
+        <p>Obrigado por se cadastrar no TEAceita. Clique no botão abaixo para ativar sua conta:</p>
+        <a href="${verificationLink}" class="btn">Verificar E-mail</a>
+        <p>Se você não solicitou este e-mail, ignore esta mensagem.</p>
+        <p>Atenciosamente,<br>Equipe TEAceita</p>
       </div>
-    `,
-    };
+    </body>
+    </html>
+  `,
+};
+
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
