@@ -177,11 +177,11 @@ empresaRouter.post("/api/cadastroEmpresa", async (req, res) => {
       return res.status(400).json({ msg: "Este e-mail já existe!" });
     }
 
-    tempEmpresaData[email] = { name, cnpj, telefone, endereco, password };
+    tempEmpresaData[email] = { name, cnpj, endereco, password };
 
     const hashedPassword = await bcryptjs.hash(password, 8);
 
-    const verificationToken = jwt.sign({ email, name, cnpj, telefone, endereco }, "verificationKey", { expiresIn: "30m" });
+    const verificationToken = jwt.sign({ email, name, cnpj, endereco }, "verificationKey", { expiresIn: "30m" });
 const verificationLink = `http://localhost:3000/api/verificarEmail?token=${verificationToken}`;
 const mailOptions = {
   from: process.env.USER_EMAIL,
