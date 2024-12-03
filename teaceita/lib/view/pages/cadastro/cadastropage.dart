@@ -81,7 +81,7 @@ class _CadastroPageState extends State<Cadastropage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const PsicologoPage(),
+                            builder: (context) => const Psicologopage(),
                           ),
                         );
                       },

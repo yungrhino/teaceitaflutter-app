@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:teaceita/providers/empresa_provider.dart';
+import 'package:teaceita/providers/psicologo_provider.dart';
 import 'package:teaceita/providers/user_provider.dart';
 import 'package:teaceita/view/routes/routes.dart';
 import 'package:teaceita/services/auth_services.dart';
@@ -9,6 +11,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => EmpresaProvider()),
+        ChangeNotifierProvider(create: (_) => PsicologoProvider())
       ],
       child: const MyApp(),
     ),

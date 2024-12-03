@@ -46,7 +46,7 @@ class AuthService {
           context: context,
           onSuccess: () {
             showSnackBar(
-                context, 'Account created! Login with the same credentials!');
+                context, 'Mensagem de verificação enviada para o E-mail!');
             isSuccess = true;
           });
       return isSuccess;

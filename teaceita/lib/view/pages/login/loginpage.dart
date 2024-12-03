@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teaceita/custom_textfield.dart';
 import 'package:teaceita/services/auth_services.dart';
+import 'package:teaceita/services/auth_services_empresa.dart';
 import 'package:teaceita/view/components/inputtext.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final AuthService authService = AuthService();
+  final AuthEmpresa authEmpresa = AuthEmpresa();
 
   void loginUser() {
     authService.signInUser(

@@ -17,6 +17,7 @@ class _VisitantepageState extends State<Visitantepage> {
   final TextEditingController dataController = TextEditingController();
   final TextEditingController cpfController = TextEditingController();
   final AuthService authService = AuthService();
+
   void signupUser() async {
     bool success = await authService.signUpUser(
         context: context,
