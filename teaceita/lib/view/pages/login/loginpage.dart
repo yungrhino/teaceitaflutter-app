@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teaceita/componentes/decoracao_campo_autenticacao.dart';
 import 'package:teaceita/custom_textfield.dart';
 import 'package:teaceita/services/auth_services.dart';
 import 'package:teaceita/services/auth_services_empresa.dart';
@@ -13,6 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _isPasswordVisible = false; //
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final AuthService authService = AuthService();
@@ -54,25 +56,56 @@ class _LoginPageState extends State<LoginPage> {
             _buildLogo(),
             const SizedBox(height: 10),
             _buildTitle(),
-            const SizedBox(height: 30),
+            const SizedBox(height: 1),
             _buildSubtitle(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 1),
             SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: CustomTextField(
-                controller: emailController,
-                hintText: 'Enter your email',
-              ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: CustomTextField(
-                controller: passwordController,
-                hintText: 'Enter your password',
-              ),
-            ),
+            Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    const Text(
+      "E-mail", // Rótulo sempre visível acima do campo
+      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+    ),
+    const SizedBox(height: 5),
+    TextFormField(
+      controller: emailController,
+      decoration: getAuthenticationInputDecoration("Número de telefone ou nome de usuário").copyWith(
+        hintText: "Digite seu usuário:", // Texto dentro do campo
+      ),
+    ),
+  ],
+),
+
+const SizedBox(height: 10),
+Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    const Text(
+      "Senha", // Rótulo sempre visível acima do campo
+      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+    ),
+    const SizedBox(height: 5),
+    TextFormField(
+      controller: passwordController,
+      obscureText: !_isPasswordVisible, // Alterna visibilidade da senha
+      decoration: getAuthenticationInputDecoration("Senha").copyWith(
+        hintText: "Digite sua senha:", // Texto dentro do campo
+        suffixIcon: IconButton(
+          icon: Icon(
+            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+          ),
+          onPressed: () {
+            setState(() {
+              _isPasswordVisible = !_isPasswordVisible; // Alterna estado
+            });
+          },
+        ),
+      ),
+    ),
+  ],
+),
+
             _buildRememberPasswordCheckbox(),
             const SizedBox(height: 20),
             _buildActionButtons(),
@@ -116,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Acesse', style: _headerStyle(35, FontWeight.bold)),
-        const SizedBox(height: 10),
+        const SizedBox(height: 5),
         Text(
           'Com número de telefone ou nome de usuário e senha para entrar',
           style: _headerStyle(25, FontWeight.normal),
@@ -176,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
       ],
     );
   }
-
+  
   Widget _buildActionButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -200,8 +233,8 @@ class _LoginPageState extends State<LoginPage> {
     return isElevated
         ? ElevatedButton(
             onPressed: () {
-              loginUser();
-              //Navigator.of(context).pushNamed('/home');
+             // loginUser();
+            Navigator.of(context).pushNamed('/home');
             },
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
