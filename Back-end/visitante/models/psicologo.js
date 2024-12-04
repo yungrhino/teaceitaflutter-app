@@ -6,7 +6,7 @@ const psicologoSchema = mongoose.Schema({
     type: String,
     trim: true,
   },
-  crp: {  // Registro profissional (CRP)
+  crp: {
     required: true,
     type: String,
     unique: true,
@@ -40,15 +40,15 @@ const psicologoSchema = mongoose.Schema({
     type: String,
     trim: true,
   },
-  especialidade: {  // A especialidade do psicólogo
+  especialidade: {
     required: true,
     type: String,
   },
-  isVerified: {  // Campo para indicar se o e-mail foi verificado
+  isVerified: {
     type: Boolean,
     default: false,
   },
-  resetTokenUsed: {  // Campo para verificar se o token de redefinição foi utilizado
+  resetTokenUsed: {
     type: Boolean,
     default: false,
   },

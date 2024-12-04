@@ -34,7 +34,7 @@ class _PerfilpageState extends State<Perfilpage> {
     }
 
     var request = http.MultipartRequest(
-        'POST', Uri.parse('http://192.168.58.4:4000/pictures/'));
+        'POST', Uri.parse('http://192.168.1.106:4000/pictures/'));
     request.files.add(await http.MultipartFile.fromPath('file', _image!.path));
     request.fields['description'] = _descriptionController.text;
 

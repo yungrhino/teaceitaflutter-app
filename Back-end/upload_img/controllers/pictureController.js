@@ -24,7 +24,7 @@ exports.retrum = async(req, res) => {
   try {
     const pictures = await Picture.find();
 
-    const baseUrl = `http://192.168.58.4:4000/`; // Defina a URL base
+    const baseUrl = `http://192.168.1.106:4000/`; // Defina a URL base
 
     const picturesWithFullUrls = pictures.map(p => ({
       _id: p._id,
