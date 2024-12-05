@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool _isPasswordVisible = false; //
+  bool _isPasswordVisible = false;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final AuthService authService = AuthService();
@@ -22,6 +22,8 @@ class _LoginPageState extends State<LoginPage> {
   final AuthPsicologo authPsicologo = AuthPsicologo();
 
   void loginUser() {
+    print("Email: ${emailController.text}");
+    print("Password: ${passwordController.text}");
     authService.signInUser(
       context: context,
       email: emailController.text,
@@ -61,51 +63,56 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 1),
             SizedBox(height: MediaQuery.of(context).size.height * 0.08),
             Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    const Text(
-      "E-mail", // Rótulo sempre visível acima do campo
-      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-    ),
-    const SizedBox(height: 5),
-    TextFormField(
-      controller: emailController,
-      decoration: getAuthenticationInputDecoration("Número de telefone ou nome de usuário").copyWith(
-        hintText: "Digite seu usuário:", // Texto dentro do campo
-      ),
-    ),
-  ],
-),
-
-const SizedBox(height: 10),
-Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    const Text(
-      "Senha", // Rótulo sempre visível acima do campo
-      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-    ),
-    const SizedBox(height: 5),
-    TextFormField(
-      controller: passwordController,
-      obscureText: !_isPasswordVisible, // Alterna visibilidade da senha
-      decoration: getAuthenticationInputDecoration("Senha").copyWith(
-        hintText: "Digite sua senha:", // Texto dentro do campo
-        suffixIcon: IconButton(
-          icon: Icon(
-            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-          ),
-          onPressed: () {
-            setState(() {
-              _isPasswordVisible = !_isPasswordVisible; // Alterna estado
-            });
-          },
-        ),
-      ),
-    ),
-  ],
-),
-
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "E-mail", // Rótulo sempre visível acima do campo
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 5),
+                TextFormField(
+                  controller: emailController,
+                  decoration: getAuthenticationInputDecoration(
+                          "Número de telefone ou nome de usuário")
+                      .copyWith(
+                    hintText: "Digite seu usuário:", // Texto dentro do campo
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Senha", // Rótulo sempre visível acima do campo
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 5),
+                TextFormField(
+                  controller: passwordController,
+                  obscureText:
+                      !_isPasswordVisible, // Alterna visibilidade da senha
+                  decoration:
+                      getAuthenticationInputDecoration("Senha").copyWith(
+                    hintText: "Digite sua senha:", // Texto dentro do campo
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible =
+                              !_isPasswordVisible; // Alterna estado
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
             _buildRememberPasswordCheckbox(),
             const SizedBox(height: 20),
             _buildActionButtons(),
@@ -209,7 +216,7 @@ Column(
       ],
     );
   }
-  
+
   Widget _buildActionButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -233,8 +240,8 @@ Column(
     return isElevated
         ? ElevatedButton(
             onPressed: () {
-             // loginUser();
-            Navigator.of(context).pushNamed('/home');
+              loginUser();
+              //Navigator.of(context).pushNamed('/home');
             },
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
