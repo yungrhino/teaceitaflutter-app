@@ -30,7 +30,8 @@ class AuthService {
           sobrenome: sobrenome,
           cpf: cpf,
           password: password,
-          token: '');
+          token: '',
+          tipo: '');
 
       http.Response res = await http.post(
           Uri.parse('${Constants.uri}/api/signUp'),

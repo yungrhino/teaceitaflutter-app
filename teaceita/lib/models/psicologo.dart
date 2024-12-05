@@ -9,6 +9,7 @@ class Psicologo {
   final String especialidade;
   final String crp;
   final String token;
+  final String tipo;
   Psicologo({
     required this.id,
     required this.nome,
@@ -17,6 +18,7 @@ class Psicologo {
     required this.especialidade,
     required this.crp,
     required this.token,
+    required this.tipo,
   });
 
   Map<String, dynamic> toMap() {
@@ -27,6 +29,7 @@ class Psicologo {
       'especialidade': especialidade,
       'crp': crp,
       'token': token,
+      'tipo': tipo,
     };
   }
 
@@ -39,6 +42,7 @@ class Psicologo {
       especialidade: map['especialidade'] ?? '',
       crp: map['crp'] ?? '',
       token: map['token'] ?? '',
+      tipo: map['tipo'] ?? '',
     );
   }
 

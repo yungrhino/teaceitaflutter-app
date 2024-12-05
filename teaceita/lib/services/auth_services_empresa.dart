@@ -22,13 +22,15 @@ class AuthEmpresa {
   }) async {
     try {
       Empresa empresa = Empresa(
-          id: '',
-          nome: nome,
-          email: email,
-          cnpj: cnpj,
-          endereco: endereco,
-          password: password,
-          token: '');
+        id: '',
+        nome: nome,
+        email: email,
+        cnpj: cnpj,
+        endereco: endereco,
+        password: password,
+        token: '',
+        tipo: '',
+      );
 
       http.Response res = await http.post(
         Uri.parse('${Constants.uri}/api/cadastroEmpresa'),

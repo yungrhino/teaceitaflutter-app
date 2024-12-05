@@ -52,6 +52,10 @@ const psicologoSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  tipo: { 
+    type: String, 
+    default: 'psicologo' 
+  },
 });
 
 const Psicologo = mongoose.model("Psicologo", psicologoSchema);

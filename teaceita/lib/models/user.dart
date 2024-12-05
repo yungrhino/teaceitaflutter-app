@@ -10,6 +10,7 @@ class User {
   final String cpf;
   final String password;
   final String token;
+  final String tipo;
 
   User({
     required this.id,
@@ -20,6 +21,7 @@ class User {
     required this.cpf,
     required this.password,
     required this.token,
+    required this.tipo,
   });
 
   Map<String, dynamic> toMap() {
@@ -31,6 +33,7 @@ class User {
       'cpf': cpf,
       'password': password,
       'token': token,
+      'tipo': tipo,
     };
   }
 
@@ -44,6 +47,7 @@ class User {
       cpf: map['cpf'] ?? '',
       password: map['password'] ?? '',
       token: map['token'] ?? '',
+      tipo: map['tipo'] ?? '',
     );
   }
 

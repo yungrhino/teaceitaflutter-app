@@ -44,7 +44,11 @@ const userSchema = mongoose.Schema({
     resetTokenUsed: {
         type: Boolean,
         default: false
-    }
+    },
+    tipo: { 
+        type: String, 
+        default: 'visitante' 
+    },
 
 });
 

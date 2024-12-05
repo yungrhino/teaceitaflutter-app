@@ -8,6 +8,7 @@ class Empresa {
   final String endereco;
   final String password;
   final String token;
+  final String tipo;
   Empresa({
     required this.id,
     required this.nome,
@@ -16,6 +17,7 @@ class Empresa {
     required this.endereco,
     required this.password,
     required this.token,
+    required this.tipo,
   });
 
   Map<String, dynamic> toMap() {
@@ -26,6 +28,7 @@ class Empresa {
       'endereco': endereco,
       'password': password,
       'token': token,
+      'tipo': tipo,
     };
   }
 
@@ -38,6 +41,7 @@ class Empresa {
       endereco: map['endereco'] ?? '',
       password: map['password'] ?? '',
       token: map['token'] ?? '',
+      tipo: map['tipo'] ?? '',
     );
   }
 

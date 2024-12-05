@@ -10,12 +10,14 @@ class PsicologoProvider extends ChangeNotifier {
     especialidade: '',
     crp: '',
     token: '',
+    tipo: '',
   );
 
   Psicologo get psicologo => _psicologo;
 
   void setPsicologo(String psicologo) {
     _psicologo = Psicologo.fromJson(psicologo);
+    print("Tipo de usuário no setPsicologo: ${_psicologo.tipo}");
     notifyListeners();
   }
 

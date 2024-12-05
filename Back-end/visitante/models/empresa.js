@@ -47,7 +47,11 @@ const empresaSchema = mongoose.Schema({
     resetTokenUsed: {
         type: Boolean,
         default: false
-    }
+    },
+    tipo: { 
+        type: String, 
+        default: 'empresa' 
+    },
 });
 
 const Empresa = mongoose.model("Empresa", empresaSchema);

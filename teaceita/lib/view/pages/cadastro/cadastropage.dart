@@ -11,7 +11,7 @@ class Cadastropage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<Cadastropage> {
-  String? selectedCadastroType;
+  String? _selectedUserType;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class _CadastroPageState extends State<Cadastropage> {
                       title: const Text('Visitante'),
                       onTap: () {
                         setState(() {
-                          selectedCadastroType = 'Visitante';
+                          _selectedUserType = 'Visitante';
                         });
                         Navigator.push(
                           context,
@@ -84,7 +84,7 @@ class _CadastroPageState extends State<Cadastropage> {
                       title: const Text('Psicólogo'),
                       onTap: () {
                         setState(() {
-                          selectedCadastroType = 'Psicologo';
+                          _selectedUserType = 'Psicologo';
                         });
                         Navigator.push(
                           context,
@@ -98,7 +98,7 @@ class _CadastroPageState extends State<Cadastropage> {
                       title: const Text('Empresa'),
                       onTap: () {
                         setState(() {
-                          selectedCadastroType = 'Empresa';
+                          _selectedUserType = 'Empresa';
                         });
                         Navigator.push(
                           context,

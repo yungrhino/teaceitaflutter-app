@@ -10,12 +10,14 @@ class EmpresaProvider extends ChangeNotifier {
     endereco: '',
     password: '',
     token: '',
+    tipo: '',
   );
 
   Empresa get empresa => _empresa;
 
   void setEmpresa(String empresa) {
     _empresa = Empresa.fromJson(empresa);
+    print("Tipo de usuário no setEmprese: ${_empresa.tipo}");
     notifyListeners();
   }
 

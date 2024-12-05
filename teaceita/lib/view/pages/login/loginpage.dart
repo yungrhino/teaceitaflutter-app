@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:teaceita/componentes/decoracao_campo_autenticacao.dart';
 import 'package:teaceita/custom_textfield.dart';
 import 'package:teaceita/services/auth_services.dart';
 import 'package:teaceita/services/auth_services_empresa.dart';
@@ -14,21 +13,39 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool _isPasswordVisible = false;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final AuthService authService = AuthService();
   final AuthEmpresa authEmpresa = AuthEmpresa();
   final AuthPsicologo authPsicologo = AuthPsicologo();
+  final _selectedUserType = 'Visitante';
 
   void loginUser() {
     print("Email: ${emailController.text}");
     print("Password: ${passwordController.text}");
-    authService.signInUser(
-      context: context,
-      email: emailController.text,
-      password: passwordController.text,
-    );
+    print("User Type: $_selectedUserType");
+
+    if (_selectedUserType == 'Visitante') {
+      authService.signInUser(
+        context: context,
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } else if (_selectedUserType == 'Psicologo') {
+      authPsicologo.signInPsicologo(
+        context: context,
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } else if (_selectedUserType == 'Empresa') {
+      authEmpresa.signInEmpresa(
+        context: context,
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } else {
+      print("Tipo de Usuário não encontrado");
+    }
   }
 
   final Color primaryColor = const Color.fromRGBO(74, 173, 101, 1);
@@ -70,13 +87,9 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 5),
-                TextFormField(
+                CustomTextField(
                   controller: emailController,
-                  decoration: getAuthenticationInputDecoration(
-                          "Número de telefone ou nome de usuário")
-                      .copyWith(
-                    hintText: "Digite seu usuário:", // Texto dentro do campo
-                  ),
+                  hintText: "Digite seu usuário:", // Texto dentro do campo
                 ),
               ],
             ),
@@ -89,27 +102,9 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 5),
-                TextFormField(
+                CustomTextField(
                   controller: passwordController,
-                  obscureText:
-                      !_isPasswordVisible, // Alterna visibilidade da senha
-                  decoration:
-                      getAuthenticationInputDecoration("Senha").copyWith(
-                    hintText: "Digite sua senha:", // Texto dentro do campo
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isPasswordVisible =
-                              !_isPasswordVisible; // Alterna estado
-                        });
-                      },
-                    ),
-                  ),
+                  hintText: "Digite sua senha:",
                 ),
               ],
             ),

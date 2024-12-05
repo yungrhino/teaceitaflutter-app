@@ -11,13 +11,16 @@ loginRouter.post('/api/login', async (req, res) => {
 
   try {
     let user = await Visitante.findOne({ email: email });
+    let userType = 'visitante';
     
     if (!user) {
       user = await Psicologo.findOne({ email: email });
+      userType = 'psicologo';
     }
     
     if (!user) {
       user = await Empresa.findOne({ email: email });
+      userType = 'empresa';
     }
     
     if (!user) {
@@ -31,7 +34,7 @@ loginRouter.post('/api/login', async (req, res) => {
 
     const token = jwt.sign({ id: user._id, tipo: user.tipo }, 'secret', { expiresIn: '1h' });
 
-     res.json({ token, ...user._doc});
+     res.json({ token, userType, ...user._doc});
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Erro interno do servidor' });

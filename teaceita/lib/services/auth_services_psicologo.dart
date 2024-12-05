@@ -22,13 +22,15 @@ class AuthPsicologo {
   }) async {
     try {
       Psicologo psicologo = Psicologo(
-          id: '',
-          nome: '',
-          password: '',
-          endereco: '',
-          especialidade: '',
-          crp: '',
-          token: '');
+        id: '',
+        nome: '',
+        password: '',
+        endereco: '',
+        especialidade: '',
+        crp: '',
+        token: '',
+        tipo: '',
+      );
 
       http.Response res = await http.post(
         Uri.parse('${Constants.uri}/api/cadastroPsicologo'),
