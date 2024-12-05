@@ -38,7 +38,7 @@ authRouter.post("/api/restPasswordRequest", async (req, res) => {
     }
 
 const restToken = jwt.sign({ id: user.id }, "RestPassword", { expiresIn: "5m" });
-const restLink = `http://localhost:3000/resetPassword?token=${restToken}`;
+const restLink = `http://15.229.250.5:3000/resetPassword?token=${restToken}`;
 const mailOptions = {
   from: process.env.USER_EMAIL,
   to: email,
@@ -180,7 +180,7 @@ authRouter.post("/api/signUp", async (req, res) => {
 
     const verificationToken = jwt.sign({ email, name, datanascimento, cpf, sobrenome }, "verificationKey", { expiresIn: "30m" });
 
-    const verificationLink = `http://localhost:3000/api/verifyEmail?token=${verificationToken}`;
+    const verificationLink = `http://15.229.250.5:3000/api/verifyEmail?token=${verificationToken}`;
 const mailOptions = {
   from: process.env.USER_EMAIL,
   to: email,

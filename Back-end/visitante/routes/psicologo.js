@@ -38,7 +38,7 @@ psicologoRouter.post("/api/restPasswordRequest", async (req, res) => {
     }
 
     const restToken = jwt.sign({ id: psicologo.id }, "RestPassword", { expiresIn: "5m" });
-const restLink = `http://localhost:3000/resetPassword?token=${restToken}`;
+const restLink = `http://15.229.250.5:3000/resetPassword?token=${restToken}`;
 const mailOptions = {
   from: process.env.USER_EMAIL,
   to: email,
@@ -176,7 +176,7 @@ psicologoRouter.post("/api/cadastroPsicologo", async (req, res) => {
 
     const verificationToken = jwt.sign({ email, name, endereco, especialidade, crp }, "verificationKey", { expiresIn: "30m" });
 
-const verificationLink = `http://localhost:3000/api/verificarPsicologo?token=${verificationToken}`;
+const verificationLink = `http://15.229.250.5:3000/api/verificarPsicologo?token=${verificationToken}`;
 const mailOptions = {
   from: process.env.USER_EMAIL,
   to: email,
@@ -343,7 +343,7 @@ psicologoRouter.post("/api/signin", async (req, res) => {
 });
 
 // Validação de Token para Psicólogo
-psicologoRouter.post("/tokenIsValid", async (req, res) => {
+psicologoRouter.post("/tokenPsicologoValid", async (req, res) => {
   try {
     const token = req.header("x-auth-token");
     if (!token) return res.json(false);
