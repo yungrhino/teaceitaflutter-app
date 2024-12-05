@@ -213,7 +213,7 @@ Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _buildButton('Cadastrar', whiteColor, primaryColor),
-        const SizedBox(width: 20),
+        const SizedBox(width: 10),
         VerticalDivider(color: primaryColor, thickness: 2),
         const SizedBox(width: 1),
         _buildButton(
