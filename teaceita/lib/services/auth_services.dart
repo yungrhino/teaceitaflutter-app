@@ -65,7 +65,7 @@ class AuthService {
       var userProvider = Provider.of<UserProvider>(context, listen: false);
       final navigator = Navigator.of(context);
       http.Response res = await http.post(
-        Uri.parse('${Constants.uri}/api/signin'),
+        Uri.parse('${Constants.uri}/api/login'),
         body: jsonEncode({
           'email': email,
           'password': password,

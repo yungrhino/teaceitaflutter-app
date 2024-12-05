@@ -11,6 +11,8 @@ class Cadastropage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<Cadastropage> {
+  String? selectedCadastroType;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +69,9 @@ class _CadastroPageState extends State<Cadastropage> {
                     ListTile(
                       title: const Text('Visitante'),
                       onTap: () {
+                        setState(() {
+                          selectedCadastroType = 'Visitante';
+                        });
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -78,6 +83,9 @@ class _CadastroPageState extends State<Cadastropage> {
                     ListTile(
                       title: const Text('Psicólogo'),
                       onTap: () {
+                        setState(() {
+                          selectedCadastroType = 'Psicologo';
+                        });
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -89,6 +97,9 @@ class _CadastroPageState extends State<Cadastropage> {
                     ListTile(
                       title: const Text('Empresa'),
                       onTap: () {
+                        setState(() {
+                          selectedCadastroType = 'Empresa';
+                        });
                         Navigator.push(
                           context,
                           MaterialPageRoute(

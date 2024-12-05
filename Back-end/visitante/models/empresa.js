@@ -40,11 +40,11 @@ const empresaSchema = mongoose.Schema({
         type: String,
         trim: true,
     },
-    isVerified: { // campo em inglês
+    isVerified: {
         type: Boolean,
         default: false
     },
-    resetTokenUsed: { // campo em inglês
+    resetTokenUsed: {
         type: Boolean,
         default: false
     }

@@ -4,15 +4,14 @@ require("dotenv").config();
 
 mongoose.set("strictQuery", true);
 
-async function main() {
-  await mongoose.connect(
-    `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@imgs.egiqt.mongodb.net/?retryWrites=true&w=majority&appName=imgs`
-  );
+const DB = process.env.DB_URI;
 
-  console.log("Conectado com sucesso!");
+
+ mongoose.connect(DB)
+ .then(() => console.log("Connected to MongoDB"))
+
+
+.catch((e) => {
+  console.log(e)
 }
-
-main().catch((err) => console.log(err)
 );
-
-module.exports = main;

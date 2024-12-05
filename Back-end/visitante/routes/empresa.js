@@ -38,7 +38,7 @@ empresaRouter.post("/api/solicitarRedefinicaoSenha", async (req, res) => {
     }
 
     const restToken = jwt.sign({ id: empresa.id }, "RestPassword", { expiresIn: "5m" });
-const restLink = `http://localhost:3000/redefinirSenha?token=${restToken}`;
+const restLink = `http://15.229.250.5:3000/redefinirSenha?token=${restToken}`;
 const mailOptions = {
   from: process.env.USER_EMAIL,
   to: email,
@@ -182,7 +182,7 @@ empresaRouter.post("/api/cadastroEmpresa", async (req, res) => {
     const hashedPassword = await bcryptjs.hash(password, 8);
 
     const verificationToken = jwt.sign({ email, name, cnpj, endereco }, "verificationKey", { expiresIn: "30m" });
-const verificationLink = `http://localhost:3000/api/verificarEmail?token=${verificationToken}`;
+const verificationLink = `http://15.229.250.5:3000/api/verificarEmail?token=${verificationToken}`;
 const mailOptions = {
   from: process.env.USER_EMAIL,
   to: email,

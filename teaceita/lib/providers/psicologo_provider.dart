@@ -14,12 +14,12 @@ class PsicologoProvider extends ChangeNotifier {
 
   Psicologo get psicologo => _psicologo;
 
-  void setUser(String psicologo) {
+  void setPsicologo(String psicologo) {
     _psicologo = Psicologo.fromJson(psicologo);
     notifyListeners();
   }
 
-  void setUserFormModel(Psicologo psicologo) {
+  void setPsicologoFormModel(Psicologo psicologo) {
     _psicologo = psicologo;
     notifyListeners();
   }
