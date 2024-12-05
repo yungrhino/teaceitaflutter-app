@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teaceita/view/pages/cadastro/cadastropage.dart';
 import 'package:teaceita/view/pages/home/homepage.dart';
 import 'package:teaceita/view/pages/login/loginpage.dart';
-import 'package:teaceita/view/pages/perfil/perfilPage.dart';
+import 'package:teaceita/view/pages/local/enviarPage.dart';
 
 class Routes {
   static const String login = '/';

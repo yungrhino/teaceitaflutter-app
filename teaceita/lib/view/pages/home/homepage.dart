@@ -77,37 +77,84 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: _buildDrawer(),
       body: Center(
-        child: ListView.builder(
-          itemCount: imageData.length,
-          itemBuilder: (context, index) {
-            return Card(
-              margin: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.network(
-                    imageData[index]['src']!,
-                    height: 200,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      imageData[index]['description']!,
-                      style: const TextStyle(fontSize: 16),
+        child: imageData.isEmpty
+            ? const CircularProgressIndicator() // Mostra um indicador de carregamento
+            : ListView.builder(
+                padding: const EdgeInsets.all(16.0),
+                itemCount: imageData.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: const EdgeInsets.symmetric(vertical: 12.0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0)),
+                    elevation: 4,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(16.0),
+                            topRight: Radius.circular(16.0),
+                          ),
+                          child: Image.network(
+                            imageData[index]['src']!,
+                            width: double.infinity,
+                            height: 180,
+                            fit: BoxFit
+                                .cover, // Garante que a imagem se ajuste ao espaço disponível
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Center(
+                                child: Icon(
+                                  Icons.broken_image,
+                                  size: 80,
+                                  color: Colors.grey,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      imageData[index]['description']!,
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8.0),
+                              Text(
+                                'Descrição da imagem ou outro texto aqui',
+                                style: const TextStyle(
+                                    fontSize: 14.0, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
-            );
-          },
-        ),
       ),
     );
   }
 
-  // Método que constrói o Drawer (menu lateral)
   Drawer _buildDrawer() {
     return Drawer(
       child: ListView(
@@ -115,24 +162,22 @@ class _HomePageState extends State<HomePage> {
         children: [
           DrawerHeader(
             decoration: const BoxDecoration(
-              color: Colors.green, // Cor do cabeçalho
+              color: Colors.green,
             ),
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start, // Alinha os textos à esquerda
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Menu', // Título do menu
+                  'Menu',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(
-                    height: 10), // Espaçamento entre o título e o nome
+                const SizedBox(height: 10),
                 Text(
-                  '${user.nome} ${user.sobrenome}', // Exibe o nome e sobrenome
+                  '${user.nome} ${user.sobrenome}',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -142,22 +187,19 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.person), // Ícone do perfil
-            title: const Text('Perfil'),
+            leading: const Icon(Icons.map),
+            title: const Text('Locais'),
             onTap: () {
-              // Ação ao clicar em "Perfil"
-              Navigator.pop(context); // Fecha o menu
-              Navigator.of(context)
-                  .pushNamed('/perfil'); // Navega para a página de perfil
+              Navigator.pop(context);
+              Navigator.of(context).pushNamed('/perfil');
             },
           ),
           ListTile(
-            leading: const Icon(Icons.logout), // Ícone do botão de sair
+            leading: const Icon(Icons.logout),
             title: const Text('Sair'),
             onTap: () {
-              // Ação ao clicar em "Sair"
-              Navigator.pop(context); // Fecha o menu
-              HomePage.signOutUser(context); // Navega de volta à tela de login
+              Navigator.pop(context);
+              HomePage.signOutUser(context);
             },
           ),
         ],
