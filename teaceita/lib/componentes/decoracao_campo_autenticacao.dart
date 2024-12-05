@@ -6,14 +6,14 @@ InputDecoration getAuthenticationInputDecoration(String label) {
     fillColor: Colors.green,
     filled: true,
     contentPadding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),
     ),
     enabledBorder: OutlineInputBorder(
-     borderRadius: BorderRadius.circular(20),
+     borderRadius: BorderRadius.circular(10),
 
     ),
-    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20),
-    borderSide: const BorderSide(color: Colors.black, width: 3),
+    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+    borderSide: const BorderSide(color: Colors.black, width: 2),
     ),
   );
 }
